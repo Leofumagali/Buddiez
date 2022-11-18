@@ -10,6 +10,13 @@ app.use(express.json())
 
 connectToDatabase()
 
+// AdminJS
+const admjs = require('./adminjs/admin')
+const { admin, router } = admjs
+
+app.use(admin.options.rootPath, router);
+
+// Routes
 app.use('/user', require('./routes/userRoutes'))
 app.use('/post', require('./routes/postRoutes'))
 
