@@ -38,24 +38,30 @@ const UserSchema = new mongoose.Schema({
     default: ""
   },
   favorite_posts: [{
-      post_id: mongoose.Schema.Types.ObjectId,
-      ref: 'posts',
+      post_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'posts',
+      },
       timestamp: {
         type: Date,
         default: Date.now
       }
     }],
   followers: [{
-      follower_id: mongoose.Schema.Types.ObjectId,
-      ref: 'users',
+      follower_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+      },
       timestamp: {
         type: Date,
         default: Date.now
       }
     }],
   following: [{
-      following_id: mongoose.Schema.Types.ObjectId,
-      ref: 'users',
+      following_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+      },
       timestamp: {
         type: Date,
         default: Date.now

@@ -12,8 +12,8 @@ const PostSchema = new mongoose.Schema({
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
       unique: true,
+      ref: 'users'
     },
-    ref: 'users',
     timestamp: Date
   }],
   comments: [{

@@ -10,8 +10,8 @@ app.use(express.json())
 
 connectToDatabase()
 
-app.use('user', require('./routes/userRoutes'))
-app.use('post', require('./routes/postsRoutes'))
+app.use('/user', require('./routes/userRoutes'))
+app.use('/post', require('./routes/postRoutes'))
 
 app.listen(port, () => {
   console.log(`Buddiez server listening at port: ${port}`)
