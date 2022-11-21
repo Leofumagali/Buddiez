@@ -114,8 +114,6 @@ class UserController {
     } catch (error) {
       res.status(409).send({status: 'failure', message: `Cannot delete account`})
     }
-
-    res.send('hihi')
   }
 }
 
