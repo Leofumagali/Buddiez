@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken'),
       bcrypt = require('bcryptjs'),
       User = require('../models/User'),
-      validator = require('validator')
+      validator = require('validator'),
+      userVerification = require('../middlewares/verification')
 
 class UserController {
   async login (req, res) {
@@ -93,21 +94,51 @@ class UserController {
     }
   }
 
-  async deleteAccount(req, res) {
-    const { token, password } = req.body,
-          decodedToken = jwt.decode(token)
+  async changePassword(req, res) {
+    const { oldPassword, newPassword } = req.body
+    let userProfile = await userVerification(req, res)
+
+    if(!userProfile) {
+      return res.status(401).send({status: 'failure', message: `Authentication failed`})
+    }
 
     try {
-      // Finding user profile
-      let userProfile = await User.findOne({ _id: decodedToken.userId})
+      // Checking oldPassword
+      const isPasswordValid = await bcrypt.compare(oldPassword, userProfile.password)
+        if(!isPasswordValid) {
+          return res.status(422).send({status: 'failure', message: `No valid data provided`})
+        }
+      
+      // Encrypting new password
+      const salt = await bcrypt.genSalt(10)
+      const newEncryptedPassword = await bcrypt.hash(newPassword, salt)
 
-      // Checking password
+      // Changing password
+      await User.updateOne({password: newEncryptedPassword})
+
+      res.status(200).send({status: 'success', message: `Password changed successfully`})
+
+    } catch (error) {
+      res.status(409).send({status: 'failure', message: `Cannot change password`})
+    }
+  }
+
+  async deleteAccount(req, res) {
+    const { password } = req.body
+    let userProfile = await userVerification(req)
+
+    if(!userProfile) {
+      return res.status(401).send({status: 'failure', message: `Authentication failed`})
+    }
+
+    try {
+      // Checking password 
       const isPasswordValid = await bcrypt.compare(password, userProfile.password)
       if(!isPasswordValid) {
         return res.status(422).send({status: 'failure', message: `No valid data provided`})
       }
-    
-      await User.deleteOne({ _id: decodedToken.userId })
+      // Deleting account
+      await User.deleteOne({ _id: userProfile._id })
 
       res.status(200).send({status: 'success', message: `Account deleted successfully`})
 

@@ -18,6 +18,7 @@ app.use(admin.options.rootPath, router);
 
 // Routes
 app.use('/user', require('./routes/userRoutes'))
+app.use('/post', require('./routes/commentRoutes'))
 app.use('/post', require('./routes/postRoutes'))
 
 app.listen(port, () => {

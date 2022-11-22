@@ -3,7 +3,8 @@ const express = require('express'),
       userController = require('../controllers/userController')
 
 router.post('/login', userController.login)
-router.post('/signup', userController.signUp)
-router.post('/delete', userController.deleteAccount)
+router.put('/signup', userController.signUp)
+router.delete('/delete', userController.deleteAccount)
+router.patch('/cgpassword', userController.changePassword)
 
 module.exports = router
