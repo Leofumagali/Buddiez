@@ -1,4 +1,5 @@
 const Post = require('../models/Post'),
+      User = require('../models/User'),
       userVerification = require('../middlewares/verification')
 
 class PostController {
@@ -63,6 +64,49 @@ class PostController {
     }
   }
 
+  async saveFavoritePost(req, res) {
+    const { postid } = req.body
+    const userProfile = await userVerification(req, res)
+
+    if(!userProfile) {
+      return res.status(401).send({status: 'failure', message: `Authentication failed`})
+    }
+
+    try {
+      await User.findOneAndUpdate({ _id: userProfile._id }, {
+        $push: {
+          favorite_posts: {
+            post_id: postid
+          }
+        }
+      })
+      res.status(200).send({status: 'success', message: `Post saved`})
+    } catch(error) {
+      res.status(404).send({status: 'failure', message: `Post could not be saved`})
+    }
+  }
+
+  async deleteFavoritePost(req, res) {
+    const { postid } = req.body
+    const userProfile = await userVerification(req, res)
+
+    if(!userProfile) {
+      return res.status(401).send({status: 'failure', message: `Authentication failed`})
+    }
+
+    try {
+      await User.findOneAndUpdate({ _id: userProfile._id }, {
+        $pull: {
+          favorite_posts: {
+            post_id: postid
+          }
+        }
+      })
+      res.status(200).send({status: 'success', message: `Favorite post deleted`})
+    } catch(error) {
+      res.status(404).send({status: 'failure', message: `Favorite post could not be deleted`})
+    }
+  }
 }
 
 module.exports = new PostController()

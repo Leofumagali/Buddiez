@@ -123,6 +123,40 @@ class UserController {
     }
   }
 
+  async editProfile(req, res) {
+    const { name, username, description } = req.body
+    const userProfile = await userVerification(req, res)
+
+    if(!userProfile) {
+      return res.status(401).send({status: 'failure', message: `Authentication failed`})
+    }
+
+    const usernameExists = await User.findOne({ username })
+    if(usernameExists) {
+      return res.status(409).send({status: 'failure', message: `Username already exists`})
+    }
+
+    try {
+      const modifierPayload = {
+        name: name,
+        username: username,
+        description: description
+      } 
+
+      for(var key in modifierPayload) {
+        if(modifierPayload[key] === undefined || modifierPayload[key] === null || modifierPayload[key].length === 0) {
+          delete modifierPayload[key]
+        }
+      }
+
+      await User.findOneAndUpdate({ username: userProfile.username }, modifierPayload)
+
+      res.status(200).send({status: 'success', message: `Profile updated.`})
+    } catch (error) {
+      res.status(409).send({status: 'failure', message: `Cannot edit profile`})
+    }
+  }
+
   async deleteAccount(req, res) {
     const { password } = req.body
     let userProfile = await userVerification(req)

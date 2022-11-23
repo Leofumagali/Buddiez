@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Josefin+Sans&display=swap');
+
+:root {
+  --font-main: 'Josefin Sans', sans-serif;
+  --font-sec: 'Inter', sans-serif;
+  --font-color: #0f0f0f;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10%;
+  margin: 0 auto;
+
+  width: 100%;
+  height: 95.5vh;
+}
+
+.logo-header {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  width: 25vw;
+  padding: .5rem;
+
+  h1 {
+    font-size: 6rem;
+    font-family: var(--font-main);
+    color: var(--font-color);
+    position: relative;
+    left: -5px;
+  }
+
+  p {
+    font-size: 2.3rem;
+    font-family: var(--font-sec);
+    color: var(--font-color)
+  }
+}
+
+.errorMessage {
+  color: rgba(255, 0, 0, 0.744);
+  font-weight: bold;
+  position: absolute;
+  top: 35px;
+  left: 195px;
+}
+
+.login-form {
+  position: relative;
+  background-color: #D2FCFF;
+
+  padding: 3rem;
+
+  width: 30vw;
+  height: 50vh;
+  min-height: 370px;
+
+  border-radius: .5rem;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: 100%;
+
+    label {
+      font-family: var(--font-sec);
+      width: 100%;
+    
+      input {
+        margin: .5rem 0;
+      }
+    }
+    
+    div {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+
+      font-size: .9rem;
+      margin-bottom: 1.1rem;
+
+      input {
+        margin-right: .2rem;
+      }
+
+      a {
+        text-align: right;
+        width: 100%;
+      }
+    }
+  }
+}
+
+a:visited {
+  color: var(--font-color);
+}
+
+.signup-button {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+}
+
+.main-input {
+  font-size: 1.5rem;
+
+  &:first-child {
+    margin-bottom: .5rem;
+  }
+}
+
+footer {
+  background-color: black;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100vw;
+  height: 4.5vh;
+  min-height: 2rem;
+
+  font-family: var(--font-main);
+}
+
+@media all and (max-width: 1200px) {
+  main {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .logo-header {
+    height: 25vh;
+    width: 100%;
+    text-align: center;
+    h1 {
+      position: static;
+    }
+  }
+
+  .login-form {
+    width: 35vw;
+    min-width: 400px;
+  }
+}
