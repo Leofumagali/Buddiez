@@ -1,5 +1,5 @@
 import { useTheme } from './hooks/useTheme';
-import { Login } from './pages/Login';
+import { Profile } from './pages/Profile';
 import './styles/global.scss';
 import { themes } from './styles/themes';
 
@@ -8,7 +8,8 @@ export function App() {
 
   return (
     <div className="App">
-      <Login />
+      {/* <Login /> */}
+      <Profile />
     </div>
   )
 }

@@ -1,0 +1,87 @@
+.signup-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 85%;
+  padding: 1rem 1.5rem;
+
+  button {
+    background-color: rgba(0, 115, 255, 0.201);
+  }
+}
+
+.svg-div {
+  display: flex;
+  align-items: right;
+  justify-content: end;
+  padding: 10px 10px 0 0;
+  width: 100%;
+
+  svg {
+    cursor: pointer;
+  }
+}
+
+.names-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+}
+
+.passwordError {
+  position: absolute;
+  top: 242px;
+  left: 320px;
+
+  font-size: 0.7rem;
+  color: rgb(255, 61, 61);
+}
+
+.birthday-gender-species-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 1.5rem 0;
+
+  label {
+    p {
+      font-size: 1.1rem;
+      margin: 0 0 8px 4px;
+    }
+  }
+
+  select {
+    background-color: #d9d9d9;
+    padding: 5%;
+    border-radius: .5rem;
+    width: 100px;
+    height: 40px;
+
+  }
+}
+
+.speciesLabel {
+  select {
+    width: 200px;
+  }
+}
+
+.checkbox-input {
+  align-self: start;
+
+  input {
+    margin: 0 .5rem 2rem .5rem;
+    transform: scale(1.5)
+  }
+}
+
+.link-to-comeback {
+  height: 100%;
+}
+
+a:last-child {
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+}

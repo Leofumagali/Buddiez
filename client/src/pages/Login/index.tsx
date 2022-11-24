@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { useState } from 'react'
-import ReactModal from 'react-modal'
+import Modal from 'react-modal'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
+import { SignUpModal } from '../../components/SignUpModal'
 import './styles.scss'
 
-ReactModal.setAppElement('#root')
+Modal.setAppElement('#root')
 
 export function Login() {
   const [email, setEmail] = useState('')
@@ -13,20 +14,16 @@ export function Login() {
   const [error, setError] = useState('')
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
 
-  let handleOpenSignUpModal = (e:React.MouseEvent) => {
-    e.preventDefault()
+  let handleOpenSignUpModal = () => {
     setIsSignUpModalOpen(true)
-    console.log('yes', isSignUpModalOpen)
   }
 
-  let handleCloseSignUpModal = (e:React.MouseEvent) => {
-    e.preventDefault()
+  let handleCloseSignUpModal = () => {
     setIsSignUpModalOpen(false)
   }
   
   let handleSubmit = (e:React.FormEvent) => {
     e.preventDefault()
-    console.log(email, password)
     login()
   }
 
@@ -95,10 +92,15 @@ export function Login() {
             />
 
           </form>
-    
+
           <div onClick={handleOpenSignUpModal} className='signup-button'> 
             <span>Sign up for Buddiez</span>
           </div>
+
+          <SignUpModal 
+            isOpen={isSignUpModalOpen}
+            onRequestClose={handleCloseSignUpModal}
+          />
         </section>
       </main>
       
