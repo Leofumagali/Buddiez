@@ -4,11 +4,14 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import { Button } from '../Button';
 import { Input } from '../Input';
-import './styles.scss';
+import { useNavigate } from 'react-router-dom'
+import styles from './styles.module.scss';
 
 interface SignUpModalProps {
-    isOpen: boolean;
-    onRequestClose: () => void;
+  isLogIn: boolean
+  isOpen: boolean;
+  onRequestClose: () => void;
+  setIsLogIn: (arg: boolean) => void
 }
 
 const modalLayout = {
@@ -21,7 +24,7 @@ const modalLayout = {
   }
 }
 
-export function SignUpModal({isOpen, onRequestClose }:SignUpModalProps) {
+export function SignUpModal({isOpen, onRequestClose, isLogIn, setIsLogIn}:SignUpModalProps) {
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -35,6 +38,8 @@ export function SignUpModal({isOpen, onRequestClose }:SignUpModalProps) {
 
   const errorIfPasswordIsNotEqual = '* your passwords must be equal' 
   let isButtonInactive = true
+
+  let navigate = useNavigate()
   
   const speciesList = ['Dog', 'Cat', 'Rat', 'Mice', 'Turtle', 'Snake', 'Rabbit', 'Bird', 'Pig', 'Fish', 'Reptile', 'Ferret', 'Insect', 'Horse', 'Cow']
 
@@ -50,7 +55,10 @@ export function SignUpModal({isOpen, onRequestClose }:SignUpModalProps) {
         species: species
       })
       .then(res => {
-          console.log(res);
+          let { token } = res.data
+          localStorage.setItem('token', token)
+          setIsLogIn(true)
+          setTimeout(() => navigate('/feed'), 500)
         }
       )
       .catch( error => {
@@ -92,12 +100,12 @@ export function SignUpModal({isOpen, onRequestClose }:SignUpModalProps) {
       style={modalLayout}
       className='react-modal-content'
     >
-      <div onClick={onRequestClose} className='svg-div'>
+      <div onClick={onRequestClose} className={styles.svgDiv}>
         <X size={26} />
       </div>
 
-      <form className='signup-form' onSubmit={handleSubmit}>
-        <div className='names-inputs'>
+      <form className={styles.signupForm} onSubmit={handleSubmit}>
+        <div className={styles.namesInputs}>
           <Input 
             width='49%'
             height='35px'
@@ -140,9 +148,9 @@ export function SignUpModal({isOpen, onRequestClose }:SignUpModalProps) {
           />
         </div>
 
-        {(password !== secondPassword) && <h1 className='passwordError'>{errorIfPasswordIsNotEqual}</h1>}
+        {(password !== secondPassword) && <h1 className={styles.passwordError}>{errorIfPasswordIsNotEqual}</h1>}
 
-        <div className='birthday-gender-species-inputs'>
+        <div className={styles.birthdayGenderSpeciesInputs}>
           <label> 
             <p>Birthday:</p>
             <Input 
@@ -156,7 +164,7 @@ export function SignUpModal({isOpen, onRequestClose }:SignUpModalProps) {
             />
           </label>
 
-          <label htmlFor="gender" className='genderLabel'>
+          <label htmlFor="gender" className={styles.genderLabel}>
             <p>Gender:</p>
             <select name="gender" id="gender" onChange={e => {setGender(e.target.value)}} required>
               <option value="Male">Male</option>
@@ -165,7 +173,7 @@ export function SignUpModal({isOpen, onRequestClose }:SignUpModalProps) {
             </select>
           </label>
 
-          <label htmlFor="species" className='speciesLabel'>
+          <label htmlFor="species" className={styles.speciesLabel}>
             <p>Species:</p>
             <select name="species" id="species" onChange={e => {setSpecies(e.target.value)}} required>
               {speciesList.map((item, idx) => {
@@ -175,7 +183,7 @@ export function SignUpModal({isOpen, onRequestClose }:SignUpModalProps) {
           </label>
         </div>
 
-        <div className='checkbox-input'>
+        <div className={styles.checkboxInput}>
           <input type="checkbox" onChange={handleCheckbox} required />
           <span>I agree with terms and conditions</span>
         </div>

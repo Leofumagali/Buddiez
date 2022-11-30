@@ -5,6 +5,17 @@ const jwt = require('jsonwebtoken'),
       userVerification = require('../middlewares/verification')
 
 class UserController {
+
+  async verifyUser(req, res) {
+    let userProfile = await userVerification(req, res)
+
+    if(!userProfile) {
+      return res.send({status: 'failure', message: `Authentication failed`})
+    }
+
+    res.status(200).send({status: 'success', message:`Authentication succeeded`, user: userProfile})
+  }
+
   async login (req, res) {
     const { email_or_username, password } = req.body
     let userProfile = {}
@@ -87,7 +98,14 @@ class UserController {
         species: species
       })
 
-      res.status(200).send({status: 'success', message: `Account created successfully`})
+      let userProfile = await User.findOne({ username })
+
+      const payload = {
+        userId: userProfile._id,
+      }
+      const jwtToken = jwt.sign(payload, process.env.JWT_SECRET_KEY)
+
+      res.status(200).send({status: 'success', message: `Account created successfully`, token: jwtToken})
 
     } catch (error) {
       res.status(409).send({status: 'failure', message: `Cannot create account`})
@@ -124,7 +142,7 @@ class UserController {
   }
 
   async editProfile(req, res) {
-    const { name, username, description } = req.body
+    const { name, username, description, profile_pic } = req.body
     const userProfile = await userVerification(req, res)
 
     if(!userProfile) {
@@ -140,7 +158,8 @@ class UserController {
       const modifierPayload = {
         name: name,
         username: username,
-        description: description
+        description: description,
+        profile_pic: profile_pic
       } 
 
       for(var key in modifierPayload) {

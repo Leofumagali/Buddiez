@@ -1,18 +1,26 @@
 import axios from 'axios'
 import { useState } from 'react'
 import Modal from 'react-modal'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { SignUpModal } from '../../components/SignUpModal'
-import './styles.scss'
+import styles from './styles.module.scss'
 
 Modal.setAppElement('#root')
 
-export function Login() {
+export interface LoginProps {
+  isLogIn: boolean
+  setIsLogIn: (arg: boolean) => void
+}
+
+export function Login({isLogIn, setIsLogIn}:LoginProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
+
+  let navigate = useNavigate()
 
   let handleOpenSignUpModal = () => {
     setIsSignUpModalOpen(true)
@@ -29,14 +37,15 @@ export function Login() {
 
   let login = () => {
     axios
-      .post('http://localhost:4000/user/login', {
+      .post(`${import.meta.env.VITE_BASE_URL}/user/login`, {
         email_or_username: email,
         password: password
       })
       .then(res => {
-          console.log(res);
           let { token } = res.data
           localStorage.setItem('token', token)
+          setIsLogIn(true)
+          setTimeout(() => navigate('/feed'), 500)
         }
       )
       .catch( error => {
@@ -46,18 +55,18 @@ export function Login() {
   }
 
   return (
-    <div className='container'>
-      <main>
-        <section className='logo-header'>
+    <div className={styles.container}>
+      <main className={styles.mainLogin}>
+        <section className={styles.logoHeader}>
           <h1>Buddiez</h1>
           <p>Connecting our<br /> best friends</p>
         </section>
 
-        <section className='login-form'>
-          {error && <span className='errorMessage'>{error}</span>}
+        <section className={styles.loginForm}>
+          {error && <span className={styles.errorMessage}>{error}</span>}
 
           <form onSubmit={handleSubmit}>
-            <label className='main-input'>E-mail:
+            <label className={styles.mainInput}>E-mail:
               <Input 
                 width='100%'
                 height='2rem'
@@ -66,7 +75,7 @@ export function Login() {
               />
             </label>
             
-            <label className='main-input'>Password:
+            <label className={styles.mainInput}>Password:
               <Input 
                 width='100%'
                 height='2rem'
@@ -93,13 +102,15 @@ export function Login() {
 
           </form>
 
-          <div onClick={handleOpenSignUpModal} className='signup-button'> 
+          <div onClick={handleOpenSignUpModal} className={styles.signupButton}> 
             <span>Sign up for Buddiez</span>
           </div>
 
           <SignUpModal 
             isOpen={isSignUpModalOpen}
             onRequestClose={handleCloseSignUpModal}
+            isLogIn={isLogIn} 
+            setIsLogIn={setIsLogIn}
           />
         </section>
       </main>

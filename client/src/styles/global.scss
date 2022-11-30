@@ -2,7 +2,13 @@
 
 :root {
     --font-main: 'Josefin Sans', sans-serif;
-    --font-sec: 'Inter', sans-serif;
+    --font-sec: -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
     --font-color: #0f0f0f;
     --primary-color: white;
     --secondary-color: black;
@@ -17,3 +23,7 @@
     text-decoration: none;
     font-family: var(--font-sec);
 }
+
+ body {
+    background-color: #F7F9F8;
+ }

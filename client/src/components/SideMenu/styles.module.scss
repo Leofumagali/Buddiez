@@ -3,9 +3,19 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
+  position: sticky;
+  top: 0;
 }
 
-.menu-list {
+a:visited {
+  color: initial;
+}
+
+a:link {
+  color: initial;
+}
+
+.menuList {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -20,27 +30,38 @@ nav {
 
   margin: 15vh 0;
 
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+
   li {
     list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+
     a {
-      font-size: 1.1rem;
       display: flex;
       align-items: center;
       gap: 8px;
-  
+      font-size: 1.1rem;
+      
       &:hover {
         color: blue;
         
         svg {
             color: blue;
         }
+      }
+
       &:active {
         color: blue;
         svg: {
           color: blue;
         }
       }
-      }
+      
       h1 {
         font-size: 2rem;
         font-family: var(--font-main);
@@ -50,8 +71,8 @@ nav {
   }
 }
 
-.settings-div {
-  a {
+.settingsDiv {
+  div {
     display: flex;
     align-items: center;
     gap: 8px;

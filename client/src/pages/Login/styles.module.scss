@@ -1,4 +1,10 @@
-main {
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainLogin {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +16,7 @@ main {
   height: 95.5vh;
 }
 
-.logo-header {
+.logoHeader {
   display: flex;
   flex-direction: column;
   height: 50vh;
@@ -40,7 +46,7 @@ main {
   left: 195px;
 }
 
-.login-form {
+.loginForm {
   position: relative;
   background-color: #D2FCFF;
 
@@ -93,13 +99,13 @@ a:visited {
   color: var(--font-color);
 }
 
-.signup-button {
+.signupButton {
   display: block;
   text-align: center;
   cursor: pointer;
 }
 
-.main-input {
+.mainInput {
   font-size: 1.5rem;
 
   &:first-child {
@@ -128,7 +134,7 @@ footer {
     gap: 1.5rem;
   }
 
-  .logo-header {
+  .logoHeader {
     height: 25vh;
     width: 100%;
     text-align: center;
@@ -137,7 +143,7 @@ footer {
     }
   }
 
-  .login-form {
+  .loginForm {
     width: 35vw;
     min-width: 400px;
   }

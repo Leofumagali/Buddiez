@@ -1,4 +1,4 @@
-import './styles.scss';
+import styles from './styles.module.scss';
 
 interface ButtonParams {
   width: string
@@ -6,14 +6,18 @@ interface ButtonParams {
   name: string
   type: 'submit' | 'button'
   isButtonInactive?: boolean
+  onClick: () => void
+  color: string
 }
 
-export function Button({name, type, width, height, isButtonInactive}: ButtonParams) {
+export function Button({onClick, name, type, width, height, color, isButtonInactive}: ButtonParams) {
   return (
     <button
-      style={{'width': width, 'height': height}}
+      className={styles.button}
+      style={{'width': width, 'height': height, 'backgroundColor': color}}
       type={type}
       disabled={isButtonInactive}
+      onClick={onClick}
     >
       {name}
     </button>

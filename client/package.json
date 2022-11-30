@@ -11,10 +11,12 @@
   "dependencies": {
     "@types/node": "^18.11.9",
     "axios": "^1.2.0",
+    "dayjs": "^1.11.6",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
+    "react-router-dom": "^6.4.3",
     "sass": "^1.56.1",
     "scss": "^0.2.4"
   },

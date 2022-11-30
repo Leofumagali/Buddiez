@@ -5,9 +5,12 @@ const User = require('../models/User'),
 class ProfilesController {
 
   async showSpecificProfile(req, res) {
-    const { userid } = req.params
+    const { username_or_id } = req.params
     try {
-      let user = await User.find({ _id: userid })
+      let user = await User.findOne({ username: username_or_id })
+      if(user === null) {
+        user = await User.findOne({ _id: username_or_id })
+      }
       res.status(200).send({status: 'success', data: user})
     } catch(error) {
       res.status(404).send({status: 'failure', message: `User not found`})
@@ -26,7 +29,7 @@ class ProfilesController {
   }
 
   async followProfile(req, res) {
-    const { profileid } = req.body
+    const { username } = req.body
     let userProfile = await userVerification(req, res)
     
     if(!userProfile) {
@@ -34,7 +37,7 @@ class ProfilesController {
     }
 
     try {
-      await User.findOneAndUpdate({ _id: profileid }, {
+      await User.findOneAndUpdate({ username }, {
         $push: {
           followers: {
             follower_id: userProfile._id
@@ -42,10 +45,12 @@ class ProfilesController {
         }
       })
 
+      let userToGetProfileId = await User.findOne({ username })
+
       await User.findOneAndUpdate({ _id: userProfile._id }, {
         $push: {
           following: {
-            following_id: profileid
+            following_id: userToGetProfileId._id
           }
         }
       })
@@ -57,7 +62,7 @@ class ProfilesController {
   }
 
   async unfollowProfile(req, res) {
-    const { profileid } = req.body
+    const { username } = req.body
     let userProfile = await userVerification(req, res)
     
     if(!userProfile) {
@@ -65,7 +70,7 @@ class ProfilesController {
     }
 
     try {
-      await User.findOneAndUpdate({ _id: profileid }, {
+      await User.findOneAndUpdate({ username }, {
         $pull: {
           followers: {
             follower_id: userProfile._id
@@ -73,10 +78,12 @@ class ProfilesController {
         }
       })
 
+      let userToGetProfileId = await User.findOne({ username })
+
       await User.findOneAndUpdate({ _id: userProfile._id }, {
         $pull: {
           following: {
-            following_id: profileid
+            following_id: userToGetProfileId._id
           }
         }
       })
@@ -88,10 +95,11 @@ class ProfilesController {
   }
 
   async showPostsFromProfile(req, res) {
-    const { profileid } = req.params
+    const { username } = req.params
 
     try {
-      let postsFromProfile = await Post.find({ owner_id: profileid })
+      let userProfile = await User.findOne({ username })
+      let postsFromProfile = await Post.find({ owner_id: userProfile._id })
       res.status(200).send({status: 'success', data: postsFromProfile})
     } catch(error) {
       res.status(404).send({status: 'failure', message: `Posts not found.`})

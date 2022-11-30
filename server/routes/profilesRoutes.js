@@ -6,7 +6,7 @@ const express = require('express'),
   router.post('/follow', profilesController.followProfile)
   router.post('/unfollow', profilesController.unfollowProfile)
   router.get('/favorites/:profileid', profilesController.showFavoritePosts)
-  router.get('/posts/:profileid', profilesController.showPostsFromProfile)
-  router.get('/:userid', profilesController.showSpecificProfile)
+  router.get('/posts/:username', profilesController.showPostsFromProfile)
+  router.get('/:username_or_id', profilesController.showSpecificProfile)
 
 module.exports = router

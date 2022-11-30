@@ -1,19 +1,27 @@
 import { Cat, GearSix, House, MagnifyingGlass, Sticker } from 'phosphor-react'
-import './styles.scss'
+import { NavLink } from 'react-router-dom'
+import styles from './styles.module.scss'
 
-export function SideMenu() {
+interface SideMenuProps {
+  username: string
+}
+
+export function SideMenu({username}:SideMenuProps) {
   return (
     <nav>
-      <ul className='menu-list'>
-        <li><a href="/"><h1>Buddiez</h1></a></li>
-        <li><a href="/"><Sticker size={32} />Post</a></li>
-        <li><a href="/"><House size={32} />Feed</a></li>
-        <li><a href="/"><Cat size={32} />Profile</a></li>
-        <li><a href="/"><MagnifyingGlass size={32} />Search</a></li>
+      <ul className={styles.menuList}>
+        <li><NavLink to={'/login'}><h1>Buddiez</h1></NavLink></li>
+        <li><Sticker size={32} />Post</li>
+        <li><NavLink to={'/feed'}><House size={32} />Feed</NavLink></li>
+        <li><NavLink to={`/profile/${username}`}><Cat size={32} />Profile</NavLink></li>
+        <li><MagnifyingGlass size={32} />Search</li>
       </ul>
 
-      <div className='settings-div'>
-        <a href="/"><GearSix size={32} />Settings</a>
+      <div className={styles.settingsDiv}>
+        <div>
+          <GearSix size={32} />
+          <span>Settings</span>
+        </div>
       </div>
     </nav>
   )

@@ -3,6 +3,7 @@ const express = require('express'),
       userController = require('../controllers/userController')
 
 router.post('/login', userController.login)
+router.post('/verify', userController.verifyUser)
 router.put('/signup', userController.signUp)
 router.delete('/delete', userController.deleteAccount)
 router.patch('/cgpassword', userController.changePassword)

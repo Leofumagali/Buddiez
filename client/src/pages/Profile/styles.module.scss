@@ -1,0 +1,123 @@
+.container {
+  display: flex;
+}
+
+main {
+  width: 100%;
+  min-width: 900px;
+}
+
+.profileContainer {
+  background-color: lightblue;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  margin: 40px auto;
+  width: 800px;
+  gap: 16px;
+
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+}
+
+.profileInfos {
+ display: flex;
+ flex-direction: column;
+ gap: 24px;
+ padding: 32px;
+}
+
+.infos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  height: 100%;
+
+}
+
+.profilePic {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+}
+
+.infoMiddle {
+  font-size: 1.5rem;
+  align-self: flex-start;
+  flex: 1;
+  padding-top: 20px;
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.infoRight {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 232px;
+}
+
+.speciesImg {
+  width: 40px;
+}
+
+.infoIcons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.description {
+  text-indent: 2.5rem;
+}
+
+.postsAndFollowers {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+  margin: 0 auto;
+  
+  span {
+    cursor: pointer;
+  }
+}
+
+.profilePosts {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+  gap: 12px;
+}
+
+.postDiv {
+  background-color: lightblue;
+  width: 247px;
+  height: 247px;
+  cursor: pointer;
+
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.messageAboutNoPosts {
+  text-align: center;
+}

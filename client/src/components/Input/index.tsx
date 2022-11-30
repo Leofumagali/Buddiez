@@ -1,4 +1,4 @@
-import './styles.scss';
+import styles from './styles.module.scss';
 
 interface InputParams {
   width: string
@@ -15,6 +15,7 @@ interface InputParams {
 export function Input({width, height, type, action, placeholder, value, min, max, required }:InputParams) {
   return (
     <input 
+      className={styles.input}
       type={type}
       style={{
         'width': width, 

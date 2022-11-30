@@ -1,4 +1,4 @@
-.signup-form {
+.signupForm {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -10,7 +10,7 @@
   }
 }
 
-.svg-div {
+.svgDiv {
   display: flex;
   align-items: right;
   justify-content: end;
@@ -22,7 +22,7 @@
   }
 }
 
-.names-inputs {
+.namesInputs {
   display: flex;
   flex-wrap: wrap;
   gap: 11px;
@@ -37,7 +37,7 @@
   color: rgb(255, 61, 61);
 }
 
-.birthday-gender-species-inputs {
+.birthdayGenderSpeciesInputs {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -67,7 +67,7 @@
   }
 }
 
-.checkbox-input {
+.checkboxInput {
   align-self: start;
 
   input {
@@ -76,7 +76,7 @@
   }
 }
 
-.link-to-comeback {
+.linkToComeback {
   height: 100%;
 }
 
