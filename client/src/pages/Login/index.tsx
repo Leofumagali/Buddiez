@@ -12,9 +12,10 @@ Modal.setAppElement('#root')
 export interface LoginProps {
   isLogIn: boolean
   setIsLogIn: (arg: boolean) => void
+  setToken: (arg: string) => void
 }
 
-export function Login({isLogIn, setIsLogIn}:LoginProps) {
+export function Login({isLogIn, setIsLogIn, setToken}:LoginProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -44,6 +45,7 @@ export function Login({isLogIn, setIsLogIn}:LoginProps) {
       .then(res => {
           let { token } = res.data
           localStorage.setItem('token', token)
+          setToken(token)
           setIsLogIn(true)
           setTimeout(() => navigate('/feed'), 500)
         }

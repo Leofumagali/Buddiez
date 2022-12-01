@@ -9,11 +9,22 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export function App() {
+  useTheme(themes.light)
+
   const [isLogIn, setIsLogIn] = useState<boolean>(false)
   const [user, setUser] = useState<any>({})
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
-  useTheme(themes.light)
+  const [isPostModalOpen, setIsPostModalOpen] = useState<boolean>(false)
+
+  const handleOpenPostModal = () => {
+    setIsPostModalOpen(true)
+  }
+  
+  const handleClosePostModal = () => {
+    setIsPostModalOpen(false)
+  }
+  
 
   useEffect(() => {
     verifyToken()
@@ -45,19 +56,35 @@ export function App() {
         <Routes>
           <Route path='/login' element={isLogIn 
             ? <Navigate to='/feed' /> 
-            : <Login isLogIn={isLogIn} setIsLogIn={setIsLogIn} />} />
+            : <Login 
+                isLogIn={isLogIn} 
+                setIsLogIn={setIsLogIn}
+                setToken={setToken} 
+              />} 
+            />
+
           <Route path='/feed' element={
-          <Feed 
-            username={user.username} 
-            verifyToken={verifyToken} 
-          />} 
+            <Feed 
+              username={user.username} 
+              profile_pic={user.profile_pic}
+              verifyToken={verifyToken}
+              isPostModalOpen={isPostModalOpen}
+              setIsPostModalOpen={setIsPostModalOpen}
+              handleOpenPostModal={handleOpenPostModal}
+              handleClosePostModal={handleClosePostModal}
+            />} 
           />
+
           <Route path='/profile/:username_or_id' element={
-          <Profile 
-            username={user.username} 
-            verifyToken={verifyToken}
-            userid={user._id}
-          />} 
+            <Profile 
+              username={user.username}
+              verifyToken={verifyToken}
+              userid={user._id}
+              isPostModalOpen={isPostModalOpen}
+              setIsPostModalOpen={setIsPostModalOpen}
+              handleOpenPostModal={handleOpenPostModal}
+              handleClosePostModal={handleClosePostModal}
+            />} 
           />
         </Routes>
       </BrowserRouter>

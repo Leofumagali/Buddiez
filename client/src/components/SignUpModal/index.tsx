@@ -109,6 +109,7 @@ export function SignUpModal({isOpen, onRequestClose, isLogIn, setIsLogIn}:SignUp
           <Input 
             width='49%'
             height='35px'
+            padding='5%'
             type='text'
             action={setName}
             placeholder='Name'
@@ -117,6 +118,7 @@ export function SignUpModal({isOpen, onRequestClose, isLogIn, setIsLogIn}:SignUp
           <Input 
             width='49%'
             height='35px'
+            padding='5%'
             type='text'
             action={setUsername}
             placeholder='Username'
@@ -125,6 +127,7 @@ export function SignUpModal({isOpen, onRequestClose, isLogIn, setIsLogIn}:SignUp
           <Input 
             width='100%'
             height='35px'
+            padding='5%'
             type='email'
             action={setEmail}
             placeholder='E-mail'
@@ -133,6 +136,7 @@ export function SignUpModal({isOpen, onRequestClose, isLogIn, setIsLogIn}:SignUp
           <Input 
             width='49%'
             height='35px'
+            padding='5%'
             type='text'
             action={setPassword}
             placeholder='Password'
@@ -141,6 +145,7 @@ export function SignUpModal({isOpen, onRequestClose, isLogIn, setIsLogIn}:SignUp
           <Input 
             width='49%'
             height='35px'
+            padding='5%'
             type='text'
             action={setSecondPassword}
             placeholder='Repeat Password'
@@ -156,6 +161,7 @@ export function SignUpModal({isOpen, onRequestClose, isLogIn, setIsLogIn}:SignUp
             <Input 
               width='200px'
               height='40px'
+              padding='5%'
               type='date'
               action={setBirthday}
               min='1950-01-01'

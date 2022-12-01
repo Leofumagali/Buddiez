@@ -13,6 +13,7 @@ interface FeedPostProps {
   isFavorite?: boolean
   description: string
   created_time: string
+  handleOpenPostModal: () => void
 }
 
 interface Owner {
@@ -21,7 +22,7 @@ interface Owner {
   profile_pic: string
 }
 
-export function FeedPost({ owner_id, location, image_url, likes, isFavorite, description, created_time}:FeedPostProps) {
+export function FeedPost({ owner_id, location, image_url, likes, isFavorite, description, created_time, handleOpenPostModal}:FeedPostProps) {
   const [owner, setOwner] = useState<Owner>()
 
   useEffect(() => {
@@ -57,7 +58,7 @@ export function FeedPost({ owner_id, location, image_url, likes, isFavorite, des
         </div>
       </div>
 
-      <div className={styles.postImage}>
+      <div className={styles.postImage} onClick={handleOpenPostModal}>
         <img src={image_url} />
       </div>
 
@@ -81,7 +82,7 @@ export function FeedPost({ owner_id, location, image_url, likes, isFavorite, des
         {timeAgo}
       </span>
 
-      <div className={styles.comments}>
+      <div className={styles.comments} onClick={handleOpenPostModal}>
         <p>See all comments...</p>
       </div>
     </div>

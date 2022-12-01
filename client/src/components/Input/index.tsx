@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 interface InputParams {
   width: string
   height: string
+  padding?: string
   type?: string
   placeholder?: string
   action: any
@@ -12,7 +13,7 @@ interface InputParams {
   required?: boolean
 }
 
-export function Input({width, height, type, action, placeholder, value, min, max, required }:InputParams) {
+export function Input({width, height, padding, type, action, placeholder, value, min, max, required }:InputParams) {
   return (
     <input 
       className={styles.input}
@@ -20,6 +21,7 @@ export function Input({width, height, type, action, placeholder, value, min, max
       style={{
         'width': width, 
         'height': height,
+        'padding': padding,
       }}
       placeholder={placeholder}
       onChange={e => action(e.target.value)}

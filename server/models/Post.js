@@ -8,6 +8,14 @@ const PostSchema = new mongoose.Schema({
   },
   location: String,
   description: String,
+  image_url: {
+    type: String,
+    required: true
+  },
+  image_public_id: {
+    type: String,
+    required: true
+  },
   likes: [{
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -19,14 +27,16 @@ const PostSchema = new mongoose.Schema({
     }
   }],
   comments: [{
-    user_id: mongoose.Schema.Types.ObjectId,
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users'
+    },
     message: String,
     timestamp: {
       type: Date,
       default: Date.now
     }
   }],
-  image_url: String,
   created_time: {
     type: Date,
     default: Date.now

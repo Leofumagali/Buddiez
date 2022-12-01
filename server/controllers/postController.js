@@ -1,11 +1,12 @@
 const Post = require('../models/Post'),
       User = require('../models/User'),
       userVerification = require('../middlewares/verification')
+const { populate } = require('../models/User')
 
 class PostController {
   
   async createNewPost(req, res) {
-    const { location, description, imageURL } = req.body
+    const { location, description, imageURL, image_public_id } = req.body
     let userProfile = await userVerification(req, res)
     
     if(!userProfile) {
@@ -18,6 +19,7 @@ class PostController {
         location: location,
         description: description,
         image_url: imageURL,
+        image_public_id: image_public_id
       })
       console.log(result)
 
@@ -32,14 +34,19 @@ class PostController {
     let userProfile = await userVerification(req, res)
     
     if(!userProfile) {
-      return res.status(401).send({status: 'failure', message: `Authentication failed`})
+      return res.status(401).send({status: 'failure', message: `Authentication failed.`})
     }
 
     try {
-      await Post.deleteOne({ _id: postId })
-      res.status(200).send({status: 'success', message: `Post deleted successfully`})
+      let deletedPost = await Post.findOneAndDelete({ _id: postId })
+      
+      if(deletedPost.image_public_id) {
+        await cloudinary.v2.api.delete_resources([deletedPost.image_public_id])
+      }
+
+      res.status(200).send({status: 'success', message: `Post deleted successfully.`})
     } catch (error) {
-      res.status(409).send({status: 'failure', message: `Post could not be deleted`})
+      res.status(409).send({status: 'failure', message: `Post could not be deleted.`})
     }
 
   }
@@ -57,7 +64,7 @@ class PostController {
     const { postid } = req.params
 
     try {
-      let specificPost = await Post.findOne({ _id: postid})
+      let specificPost = await Post.findOne({ _id: postid}).populate('comments.user_id')
       res.status(200).send({status: 'success', data: specificPost})
     } catch (error) {
       res.status(404).send({status: 'failure', message: `Post could not be found`})

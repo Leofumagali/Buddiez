@@ -1,0 +1,153 @@
+.container {
+  display: flex;
+}
+
+.postSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  width: 65%;
+  height: 700px;
+  border-right: 1px solid black;
+  background-color: rgb(146, 208, 229);
+  position: relative;
+}
+
+.postInfos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userInfos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 5px;
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  h1 {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+}
+
+.location {
+  align-self: flex-end;
+}
+
+.userPhoto {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: lightblue;
+}
+
+.postImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 629px;
+  height: 500px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.postIcons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leftIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+.rightIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 10px;
+}
+
+.description {
+  text-indent: 20px;
+  margin-bottom: 22px;
+}
+
+.timeAgo {
+  font-size: 0.85rem;
+  text-align: right;
+  margin-right: 10px;
+  color: rgb(128, 128, 128);
+  justify-self: flex-end;
+  position: absolute;
+  bottom: 12px;
+  right: 5px;
+}
+
+.commentSection {
+  display: flex;
+  flex-direction: column;
+  flex: 1 ;
+  justify-content: space-between;
+}
+
+.allComments {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 641px;
+  padding: 10px;
+  overflow: scroll;
+}
+
+.commentCard {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #D2FCFF;
+  position: relative;
+}
+
+.deleteComment {
+  position: absolute;
+  right: 10px;
+}
+
+.mainComment {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 5fr;
+  place-items: start;
+
+  margin-bottom: 24px;
+}
+
+.commentInput {
+  padding: 20px;
+  background-color: #D2FCFF;
+
+  input {
+    width: 100%;
+    background-color: #D2FCFF;
+    outline: none;
+  }
+}

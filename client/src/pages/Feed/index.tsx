@@ -1,7 +1,8 @@
-import axios, { all } from 'axios'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { FeedPost } from '../../components/FeedPost'
 import { SideMenu } from '../../components/SideMenu'
+import { PostModal } from '../../components/PostModal'
 import styles from './styles.module.scss'
 
 interface Post {
@@ -15,10 +16,15 @@ interface Post {
 
 interface FeedProps {
   username: string
+  profile_pic: string
   verifyToken: () => void
+  isPostModalOpen: boolean
+  setIsPostModalOpen: (arg: boolean) => void
+  handleOpenPostModal: () => void
+  handleClosePostModal: () => void
 }
 
-export function Feed({username, verifyToken}:FeedProps) {
+export function Feed({username, profile_pic, verifyToken, isPostModalOpen, setIsPostModalOpen, handleOpenPostModal, handleClosePostModal}:FeedProps) {
   const [listOfPosts, setListOfPosts] = useState<Post[]>([])
 
   useEffect(() => {
@@ -54,10 +60,18 @@ export function Feed({username, verifyToken}:FeedProps) {
                 description={item.description}
                 likes={item.likes}
                 created_time={item.created_time}
+                handleOpenPostModal={handleOpenPostModal}
               />
             )
           })}
         </div>
+
+        <PostModal 
+          isOpen={isPostModalOpen}
+          onRequestClose={handleClosePostModal}
+          username={username}
+          profile_pic={profile_pic}
+        />
       </main>
     </div>
   )

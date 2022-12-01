@@ -6,8 +6,8 @@ interface ButtonParams {
   name: string
   type: 'submit' | 'button'
   isButtonInactive?: boolean
-  onClick: () => void
-  color: string
+  onClick?: () => void
+  color?: string
 }
 
 export function Button({onClick, name, type, width, height, color, isButtonInactive}: ButtonParams) {

@@ -78,6 +78,10 @@ main {
   gap: 4px;
 }
 
+.editProfile {
+  cursor: pointer;
+}
+
 .description {
   text-indent: 2.5rem;
 }
@@ -99,6 +103,8 @@ main {
   grid-template-columns: 1fr 1fr 1fr;
   place-items: center;
   gap: 12px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .postDiv {
@@ -117,6 +123,7 @@ main {
     object-fit: cover;
   }
 }
+
 
 .messageAboutNoPosts {
   text-align: center;

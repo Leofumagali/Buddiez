@@ -1,11 +1,13 @@
 import axios from 'axios'
-import { GenderFemale, GenderMale } from 'phosphor-react'
+import { GenderFemale, GenderMale, NotePencil } from 'phosphor-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { SideMenu } from '../../components/SideMenu'
-import cat from '../../../public/Cat.svg'
+import cat from '/Cat.svg'
 import styles from './styles.module.scss'
+import { EditProfileModal } from '../../components/EditProfileModal'
+import { PostModal } from '../../components/PostModal'
 
 interface User {
   name: string
@@ -26,9 +28,13 @@ interface ProfileProps {
   username: string
   userid: string
   verifyToken: () => void
+  isPostModalOpen: boolean
+  setIsPostModalOpen: (arg: boolean) => void
+  handleOpenPostModal: () => void
+  handleClosePostModal: () => void
 }
 
-export function Profile({ username, userid, verifyToken }:ProfileProps) {
+export function Profile({ username, userid, verifyToken, isPostModalOpen, setIsPostModalOpen, handleOpenPostModal, handleClosePostModal }:ProfileProps) {
   const [user, setUser] = useState<User>({
     name: '',
     username: '',
@@ -42,18 +48,25 @@ export function Profile({ username, userid, verifyToken }:ProfileProps) {
   const [loadingUser, setLoadingUser] = useState(false)
   const [posts, setPosts] = useState<any[]>([{}])
   const [loadingPosts, setLoadingPosts] = useState(false)
+  const [isEditProfileModalOpen, 
+    setIsEditProfileModalOpen] = useState<boolean>(false)
 
   let { username_or_id } = useParams()
-
+  
   const [isFollowingThisProfile, 
-    setIsFollowingThisProfile] = useState<boolean | null>(true)
-
+    setIsFollowingThisProfile] = useState<boolean>(false)
 
   useEffect(() => {
     verifyToken()
     getUser()
   }, [username_or_id])
-  console.log('one render')
+
+  useEffect(() => {
+    if(user.name) {
+      setLoadingUser(true)
+      setIsFollowingThisProfile(user.followers.some((item: any) => item.follower_id === userid))
+    }
+  }, [user])
 
   let getUser = async () => {
     await axios
@@ -71,9 +84,7 @@ export function Profile({ username, userid, verifyToken }:ProfileProps) {
           following: following
         })
         getPosts(username)
-        setLoadingUser(true)
-        setIsFollowingThisProfile(user.followers.some(item => item.follower_id === userid))
-        console.log(user.followers.some(item => item.follower_id === userid))
+        setLoadingPosts(true)
       })
       .catch(error => {
         console.log(error)
@@ -86,38 +97,47 @@ export function Profile({ username, userid, verifyToken }:ProfileProps) {
       .then(res => {
         let postsFromData = (res.data.data).reverse()
         setPosts([...postsFromData])
-        setLoadingPosts(true)
       })
   }
 
   let handleFollow = async () => {
-    axios
+    await axios
       .post(`${import.meta.env.VITE_BASE_URL}/user/follow`, {
         username: username_or_id
       })
       .then(res => {
         setIsFollowingThisProfile(true)
         console.log('following')
+        getUser()
       })
       .catch(error => {
-        console.log(`Something went wrong: ${RangeError}`)
+        console.log(`Something went wrong: ${error}`)
       })
   }
 
-  let handleUnfollow = () => {
-    axios
+  let handleUnfollow = async () => {
+    await axios
       .post(`${import.meta.env.VITE_BASE_URL}/user/unfollow`, {
         username: username_or_id
       })
       .then(res => {
         setIsFollowingThisProfile(false)
         console.log('unfollowing')
+        getUser()
       })
       .catch(error => {
         console.log(`Something went wrong: ${RangeError}`)
       })
   }
 
+  let handleOpenEditProfileModal = () => {
+    setIsEditProfileModalOpen(true)
+  }
+  
+  let handleCloseEditProfileModal = () => {
+    setIsEditProfileModalOpen(false)
+  }
+  
   return (
     <div className={styles.container}>
       <SideMenu 
@@ -144,7 +164,8 @@ export function Profile({ username, userid, verifyToken }:ProfileProps) {
                   />}
                 </div>
                 <div>
-                  {isFollowingThisProfile
+                  {username !== user.username 
+                  ? isFollowingThisProfile
                     ? <Button
                       width='140px'
                       height='40px'
@@ -160,8 +181,18 @@ export function Profile({ username, userid, verifyToken }:ProfileProps) {
                       type='button'
                       onClick={handleFollow}
                       color='rgb(77, 207, 250)'
-                    />
+                    /> 
+                  : <div 
+                      onClick={handleOpenEditProfileModal} 
+                      className={styles.editProfile}
+                    >
+                     <NotePencil size={34} />
+                    </div>
                   }
+                <EditProfileModal 
+                  isOpen={isEditProfileModalOpen}
+                  onRequestClose={handleCloseEditProfileModal}
+                />
                 </div>
               </div>
               
@@ -187,7 +218,7 @@ export function Profile({ username, userid, verifyToken }:ProfileProps) {
           <div className={styles.profilePosts}>
             {loadingPosts && posts.reverse().map((item, idx) => {
               return (
-              <div key={idx} className={styles.postDiv}>
+              <div key={idx} className={styles.postDiv} onClick={handleOpenPostModal}>
                 <img
                   src={item.image_url}
                 />
@@ -196,6 +227,10 @@ export function Profile({ username, userid, verifyToken }:ProfileProps) {
           </div>
           {posts.length === 0 && <p className={styles.messageAboutNoPosts}>This user has no posts.</p>}
         </section>
+        <PostModal 
+          isOpen={isPostModalOpen}
+          onRequestClose={handleClosePostModal}
+        />
       </main>
     </div>
   )
