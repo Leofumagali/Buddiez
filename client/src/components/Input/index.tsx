@@ -11,11 +11,13 @@ interface InputParams {
   min?: string
   max?: string
   required?: boolean
+  name?: string
 }
 
-export function Input({width, height, padding, type, action, placeholder, value, min, max, required }:InputParams) {
+export function Input({name, width, height, padding, type, action, placeholder, value, min, max, required }:InputParams) {
   return (
-    <input 
+    <input
+      name={name}
       className={styles.input}
       type={type}
       style={{

@@ -70,6 +70,7 @@ export function Login({isLogIn, setIsLogIn, setToken}:LoginProps) {
           <form onSubmit={handleSubmit}>
             <label className={styles.mainInput}>E-mail:
               <Input 
+                name='email'
                 width='100%'
                 height='2rem'
                 type='email'

@@ -39,6 +39,10 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
     getPost()
   }, [])
 
+  useEffect(() => {
+    scrollCommentsDown()
+  }, [post])
+
   const getPost = async () => {
     await axios
       .get(`${import.meta.env.VITE_BASE_URL}/post/${postId}`)
@@ -55,10 +59,23 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
             postid: post._id
           })
           .then(res => {
-            console.log(res.data)
+            getPost()
           })
           .catch(error => {
             console.log(`Something went wrong: ${error}`)
+          })
+  }
+
+  const deleteComment = async (id: string) => {
+    await axios
+          .delete(`${import.meta.env.VITE_BASE_URL}/post/deletecomment`, {
+            data: {
+              postid: post._id,
+              commentid: id,
+            }
+          })
+          .then(res => {
+            getPost()
           })
   }
 
@@ -67,9 +84,19 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
     addNewComment()
   }
 
+  const scrollCommentsDown = () => {
+    let allCommentsElement = document.getElementById('allComments') as HTMLInputElement | null 
+    allCommentsElement?.scrollTo({
+      top: 99999,
+    });
+  }
+
+  const inputField = document.getElementById('commentInput') as HTMLInputElement | null;
+  const focusOnInput = () => inputField!.focus()
+
   dayjs.extend(relativeTime)
   let timeAgo = dayjs(post.created_time).fromNow()
-
+  
   return (
     <Modal
       isOpen={isOpen}
@@ -99,7 +126,9 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
           <div className={styles.postIcons}>
             <div className={styles.leftIcons}>
               <PawPrint size={32} />
-              <ChatCircleDots size={32} />
+              <div onClick={focusOnInput}>
+                <ChatCircleDots size={32} />
+              </div>
               <span>{post.likes?.length} people liked this</span>
             </div>
 
@@ -119,12 +148,16 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
         </section>
 
         <section className={styles.commentSection}>
-          <div className={styles.allComments}>
+          <div className={styles.allComments} id='allComments'>
             {listOfComments.map((item:any, idx: number) => {
               return (<div key={idx} className={styles.commentCard}>
                 <div className={styles.mainComment} >
-                  {(username === item.user_id.username) && <div className={styles.deleteComment}>
-                      <Trash size={20} />
+                  {(username === item.user_id.username) 
+                    && <div 
+                        className={styles.deleteComment}
+                        onClick={() => deleteComment(item._id)}
+                      >
+                        <Trash size={20} />
                     </div>
                   }
                   <Cat size={50} />
@@ -143,6 +176,7 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
 
           <form onSubmit={handleSubmit} className={styles.commentInput}>
             <input 
+              id='commentInput'
               placeholder='Comment something...'
               type="text" 
               onChange={e => {setNewComment(e.target.value)}}
