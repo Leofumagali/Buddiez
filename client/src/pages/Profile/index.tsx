@@ -65,7 +65,7 @@ export function Profile({ username, profile_pic, userid, verifyToken, isPostModa
 
   let { username_or_id } = useParams()
   let location = useLocation()
-    console.log(location)
+
   useEffect(() => {
     verifyToken()
     getUser()
@@ -227,11 +227,11 @@ export function Profile({ username, profile_pic, userid, verifyToken, isPostModa
           </div>
 
           <div className={styles.profilePosts}>
-            {loadingPosts && posts.reverse().map(item => {
+            {loadingPosts && posts.reverse().map((item, idx) => {
               return (
                 <Link 
                   to={`/post/${item._id}`}
-                  key={item._id}
+                  key={idx}
                   className={styles.postDiv} 
                   state={{ backgroundLocation: location }}
                 >

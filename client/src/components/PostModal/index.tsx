@@ -3,7 +3,7 @@ import { ChatCircleDots, DotsThreeOutline, PawPrint, TagSimple, Trash } from 'ph
 import { useEffect, useState } from 'react';
 import Modal from 'react-modal'
 import { useNavigate, useParams } from 'react-router-dom'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import styles from './styles.module.scss'
 
@@ -36,7 +36,7 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
 
   let navigate = useNavigate()
   let { postid } = useParams()
-  console.log(window.history)
+
   let onRequestCloseAndNavigateBack = () => {
     onRequestClose()
     if(window.history.state) {
@@ -105,7 +105,7 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
       behavior: 'smooth'
     });
   }
-
+  console.log(listOfComments)
   const inputField = document.getElementById('commentInput') as HTMLInputElement | null;
   const focusOnInput = () => inputField!.focus()
 
@@ -164,7 +164,8 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
 
         <section className={styles.commentSection}>
           <div className={styles.allComments} id='allComments'>
-            {listOfComments.map((item:any, idx: number) => {
+            {listOfComments.length > 0
+              ? listOfComments.map((item:any, idx: number) => {
               return (<div key={idx} className={styles.commentCard}>
                 <div className={styles.mainComment} >
                   {(username === item.user_id?.username) 
@@ -186,7 +187,9 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
                 </span>
               </div>
               )
-            })} 
+            })
+            : <p className={styles.noPostMessage}>Sorry, no comments yet, be the first!</p>
+            } 
           </div>
 
           <form onSubmit={handleSubmit} className={styles.commentInput}>

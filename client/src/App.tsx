@@ -85,7 +85,7 @@ export function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/login' element={isLogIn 
+        <Route path='/' element={isLogIn 
           ? <Navigate to='/feed' /> 
           : <Login 
               isLogIn={isLogIn} 

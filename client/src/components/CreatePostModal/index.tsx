@@ -44,7 +44,7 @@ export function CreatePostModal({isOpen, onRequestClose}:CreatePostModalProps) {
     })
   
   const openWidget = () => uploadWidget.open()
-    console.log(postLocation, description, imageUrl, imagePublicId)
+
   const createPost = async () => {
     await axios
             .put(`${import.meta.env.VITE_BASE_URL}/post/create`, {

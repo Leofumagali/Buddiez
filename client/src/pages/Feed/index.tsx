@@ -2,7 +2,6 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { FeedPost } from '../../components/FeedPost'
 import { SideMenu } from '../../components/SideMenu'
-import { PostModal } from '../../components/PostModal'
 import styles from './styles.module.scss'
 import { CreatePostModal } from '../../components/CreatePostModal'
 
@@ -67,7 +66,7 @@ export function Feed({
       
       <main>
         <div className={styles.feedContainer}>
-          {listOfPosts.map((item, idx) => {
+          {listOfPosts.length > 0 && listOfPosts.map((item, idx) => {
             return (
               <FeedPost 
                 key={idx}

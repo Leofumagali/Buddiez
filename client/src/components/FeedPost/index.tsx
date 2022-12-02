@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { ChatCircleDots, DotsThreeOutline, PawPrint, TagSimple } from 'phosphor-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import styles from './styles.module.scss'
 
@@ -28,6 +28,7 @@ interface Owner {
 
 export function FeedPost({ owner_id, postid, location, image_url, likes, isFavorite, description, created_time, handleOpenPostModal, savePost, removeSavePost }:FeedPostProps) {
   const [owner, setOwner] = useState<Owner>()
+  let navigate = useNavigate()
 
   useEffect(() => {
     getOwnerOfPost()
@@ -69,7 +70,7 @@ export function FeedPost({ owner_id, postid, location, image_url, likes, isFavor
       <div className={styles.postIcons}>
         <div className={styles.leftIcons}>
           <PawPrint size={32} />
-          <div>
+          <div onClick={() => navigate(`/post/${postid}`)}>
             <ChatCircleDots size={32} />
           </div>
           <span>{likes.length} people liked this</span>
@@ -95,7 +96,7 @@ export function FeedPost({ owner_id, postid, location, image_url, likes, isFavor
         {timeAgo}
       </span>
 
-      <div className={styles.comments}>
+      <div className={styles.comments} onClick={() => navigate(`/post/${postid}`)}>
         <p>See all comments...</p>
       </div>
     </div>

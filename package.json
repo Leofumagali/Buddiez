@@ -1,0 +1,16 @@
+{
+    "name": "Buddiez",
+    "version": "1.0.0",
+    "description": "some description",
+    "main": "./server/app.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "cd ./server && node app.js"
+    },
+    "engines": {
+      "node": "18.x"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
