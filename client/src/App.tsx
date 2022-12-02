@@ -2,11 +2,13 @@ import { useTheme } from './hooks/useTheme';
 import { Feed } from './pages/Feed';
 import { Login } from './pages/Login';
 import { Profile } from './pages/Profile';
-import { BrowserRouter, Route, Routes, Navigate, useLocation } from 'react-router-dom'
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom'
 import './styles/global.scss';
 import { themes } from './styles/themes';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { PostModal } from './components/PostModal';
+import { SinglePost } from './pages/SinglePost';
 
 export function App() {
   useTheme(themes.light)
@@ -82,59 +84,81 @@ export function App() {
 
   return (
     <div className="App">
-        <Routes>
-          <Route path='/login' element={isLogIn 
-            ? <Navigate to='/feed' /> 
-            : <Login 
-                isLogIn={isLogIn} 
-                setIsLogIn={setIsLogIn}
-                setToken={setToken} 
-              />} 
-            />
-
-          <Route path='/feed' element={
-            <Feed 
-              username={user.username} 
-              profile_pic={user.profile_pic}
-              verifyToken={verifyToken}
-
-              isPostModalOpen={isPostModalOpen}
-              setIsPostModalOpen={setIsPostModalOpen}
-              handleOpenPostModal={handleOpenPostModal}
-              handleClosePostModal={handleClosePostModal}
-
-              isCreatePostModalOpen={isCreatePostModalOpen}
-              setIsCreatePostModalOpen={setIsCreatePostModalOpen}
-              handleOpenCreatePostModal={handleOpenCreatePostModal}
-              handleCloseCreatePostModal={handleCloseCreatePostModal}
-
-              savePost={savePost}
-              removeSavePost={removeSavePost}
+      <Routes>
+        <Route path='/login' element={isLogIn 
+          ? <Navigate to='/feed' /> 
+          : <Login 
+              isLogIn={isLogIn} 
+              setIsLogIn={setIsLogIn}
+              setToken={setToken} 
             />} 
           />
 
-          <Route path='/profile/:username_or_id' element={
-            <Profile 
-              username={user.username}
-              profile_pic={user.profile_pic}
-              verifyToken={verifyToken}
-              userid={user._id}
+        <Route path='/feed' element={
+          <Feed 
+            username={user.username} 
+            profile_pic={user.profile_pic}
+            verifyToken={verifyToken}
 
-              isPostModalOpen={isPostModalOpen}
-              setIsPostModalOpen={setIsPostModalOpen}
-              handleOpenPostModal={handleOpenPostModal}
-              handleClosePostModal={handleClosePostModal}
+            isPostModalOpen={isPostModalOpen}
+            setIsPostModalOpen={setIsPostModalOpen}
+            handleOpenPostModal={handleOpenPostModal}
+            handleClosePostModal={handleClosePostModal}
 
-              isCreatePostModalOpen={isCreatePostModalOpen}
-              setIsCreatePostModalOpen={setIsCreatePostModalOpen}
-              handleOpenCreatePostModal={handleOpenCreatePostModal}
-              handleCloseCreatePostModal={handleCloseCreatePostModal}
+            isCreatePostModalOpen={isCreatePostModalOpen}
+            setIsCreatePostModalOpen={setIsCreatePostModalOpen}
+            handleOpenCreatePostModal={handleOpenCreatePostModal}
+            handleCloseCreatePostModal={handleCloseCreatePostModal}
 
-              savePost={savePost}
-              removeSavePost={removeSavePost}
-            />} 
-          />
-        </Routes>
+            savePost={savePost}
+            removeSavePost={removeSavePost}
+          />} 
+        />
+
+        <Route path='/profile/:username_or_id' element={
+          <Profile 
+            username={user.username}
+            profile_pic={user.profile_pic}
+            verifyToken={verifyToken}
+            userid={user._id}
+
+            isPostModalOpen={isPostModalOpen}
+            setIsPostModalOpen={setIsPostModalOpen}
+            handleOpenPostModal={handleOpenPostModal}
+            handleClosePostModal={handleClosePostModal}
+
+            isCreatePostModalOpen={isCreatePostModalOpen}
+            setIsCreatePostModalOpen={setIsCreatePostModalOpen}
+            handleOpenCreatePostModal={handleOpenCreatePostModal}
+            handleCloseCreatePostModal={handleCloseCreatePostModal}
+
+            savePost={savePost}
+            removeSavePost={removeSavePost}
+          />} 
+        />
+
+        <Route path='/post/:postid' element={
+          <SinglePost 
+            username={user.username}
+            profile_pic={user.profile_pic}
+            onRequestClose={handleClosePostModal}
+            isCreatePostModalOpen={isCreatePostModalOpen}
+            handleOpenCreatePostModal={handleOpenCreatePostModal}
+            handleCloseCreatePostModal={handleCloseCreatePostModal}
+          />} 
+        />
+
+        {state?.backgroundLocation && (
+        <Route path="/post/:postid" element={
+          <PostModal 
+            isOpen={true}
+            onRequestClose={handleClosePostModal}
+            username={user.username}
+            profile_pic={user.profile_pic}
+          />} 
+        />
+      )}
+      </Routes>
     </div>
   )
 }

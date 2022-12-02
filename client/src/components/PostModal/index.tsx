@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { Cat, ChatCircleDots, Dog, DotsThreeOutline, PawPrint, TagSimple, Trash } from 'phosphor-react';
+import { ChatCircleDots, DotsThreeOutline, PawPrint, TagSimple, Trash } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import Modal from 'react-modal'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import styles from './styles.module.scss'
@@ -30,9 +31,17 @@ interface PostModalProps {
 
 export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostModalProps) {
   const [post, setPost] = useState<any>({})
-  const [postId, setPostId] = useState('6389b9c5aea9388899767888')
   const [listOfComments, setListOfComments] = useState<any>([])
   const [newComment, setNewComment] = useState('')
+
+  // new feature
+  let navigate = useNavigate()
+  let { postid } = useParams()
+
+  let onRequestCloseAndNavigateBack = () => {
+    onRequestClose()
+    navigate(-1)
+  }
 
   useEffect(() => {
     getPost()
@@ -40,12 +49,11 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
 
   useEffect(() => {
     scrollCommentsDown()
-    console.log(post)
   }, [post])
 
   const getPost = async () => {
     await axios
-      .get(`${import.meta.env.VITE_BASE_URL}/post/${postId}`)
+      .get(`${import.meta.env.VITE_BASE_URL}/post/${postid}`)
       .then(res => {
         setPost(res.data.data)
         setListOfComments((listOfComments:any) => [...res.data.data.comments])
@@ -104,7 +112,7 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onRequestClose}
+      onRequestClose={onRequestCloseAndNavigateBack}
       style={modalLayout}
       className='react-modal-content'
     >

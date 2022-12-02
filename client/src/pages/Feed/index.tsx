@@ -86,13 +86,6 @@ export function Feed({
           })}
         </div>
 
-        <PostModal 
-          isOpen={isPostModalOpen}
-          onRequestClose={handleClosePostModal}
-          username={username}
-          profile_pic={profile_pic}
-        />
-
         <CreatePostModal 
           isOpen={isCreatePostModalOpen}
           onRequestClose={handleCloseCreatePostModal}

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ChatCircleDots, DotsThreeOutline, PawPrint, TagSimple } from 'phosphor-react'
+import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import * as dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -41,7 +42,6 @@ export function FeedPost({ owner_id, postid, location, image_url, likes, isFavor
       })
   }
 
-
   dayjs.extend(relativeTime)
   let timeAgo = dayjs(created_time).fromNow()
 
@@ -58,14 +58,18 @@ export function FeedPost({ owner_id, postid, location, image_url, likes, isFavor
         </div>
       </div>
 
-      <div className={styles.postImage} onClick={handleOpenPostModal}>
+      <Link 
+        to={`/post/${postid}`}
+        className={styles.postImage}
+        state={{ backgroundLocation: location }}
+      >
         <img src={image_url} />
-      </div>
+      </Link>
 
       <div className={styles.postIcons}>
         <div className={styles.leftIcons}>
           <PawPrint size={32} />
-          <div onClick={handleOpenPostModal}>
+          <div>
             <ChatCircleDots size={32} />
           </div>
           <span>{likes.length} people liked this</span>
@@ -91,7 +95,7 @@ export function FeedPost({ owner_id, postid, location, image_url, likes, isFavor
         {timeAgo}
       </span>
 
-      <div className={styles.comments} onClick={handleOpenPostModal}>
+      <div className={styles.comments}>
         <p>See all comments...</p>
       </div>
     </div>

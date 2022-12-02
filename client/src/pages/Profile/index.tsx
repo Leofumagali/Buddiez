@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { GenderFemale, GenderMale, NotePencil } from 'phosphor-react'
 import { useEffect, useState } from 'react'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams, useLocation, Link } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { SideMenu } from '../../components/SideMenu'
 import cat from '/Cat.svg'
@@ -65,7 +65,7 @@ export function Profile({ username, profile_pic, userid, verifyToken, isPostModa
 
   let { username_or_id } = useParams()
   let location = useLocation()
-
+    console.log(location)
   useEffect(() => {
     verifyToken()
     getUser()
@@ -117,7 +117,6 @@ export function Profile({ username, profile_pic, userid, verifyToken, isPostModa
       })
       .then(res => {
         setIsFollowingThisProfile(true)
-        console.log('following')
         getUser()
       })
       .catch(error => {
@@ -132,7 +131,6 @@ export function Profile({ username, profile_pic, userid, verifyToken, isPostModa
       })
       .then(res => {
         setIsFollowingThisProfile(false)
-        console.log('unfollowing')
         getUser()
       })
       .catch(error => {
@@ -216,7 +214,7 @@ export function Profile({ username, profile_pic, userid, verifyToken, isPostModa
             </article>
 
             <div className={styles.postsAndFollowers}>
-              <span onClick={() => console.log('clickou')}>
+              <span>
                 {loadingPosts ? posts.length : '0'} posts
               </span>
               <span>
@@ -229,23 +227,24 @@ export function Profile({ username, profile_pic, userid, verifyToken, isPostModa
           </div>
 
           <div className={styles.profilePosts}>
-            {loadingPosts && posts.reverse().map((item, idx) => {
+            {loadingPosts && posts.reverse().map(item => {
               return (
-              <div key={idx} className={styles.postDiv} onClick={handleOpenPostModal}>
-                <img
-                  src={item.image_url}
-                />
-              </div>)
+                <Link 
+                  to={`/post/${item._id}`}
+                  key={item._id}
+                  className={styles.postDiv} 
+                  state={{ backgroundLocation: location }}
+                >
+                    <img
+                      src={item.image_url}
+                    />
+                </Link>
+              )
             })}
           </div>
+          
           {posts.length === 0 && <p className={styles.messageAboutNoPosts}>This user has no posts.</p>}
         </section>
-        <PostModal 
-          isOpen={isPostModalOpen}
-          onRequestClose={handleClosePostModal}
-          username={username}
-          profile_pic={profile_pic}
-        />
       </main>
     </div>
   )
