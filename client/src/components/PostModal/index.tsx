@@ -34,13 +34,16 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
   const [listOfComments, setListOfComments] = useState<any>([])
   const [newComment, setNewComment] = useState('')
 
-  // new feature
   let navigate = useNavigate()
   let { postid } = useParams()
-
+  console.log(window.history)
   let onRequestCloseAndNavigateBack = () => {
     onRequestClose()
-    navigate(-1)
+    if(window.history.state) {
+      navigate(-1)
+    } else {
+      navigate(`/feed`)
+    }
   }
 
   useEffect(() => {
