@@ -29,7 +29,8 @@ const PostSchema = new mongoose.Schema({
   comments: [{
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'users'
+      ref: 'users',
+      required: true
     },
     message: String,
     timestamp: {

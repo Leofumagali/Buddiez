@@ -90,6 +90,15 @@
   }
 }
 
+.savedPost {
+  color: red;
+}
+
+.unsavedPost {
+  color: black;
+  fill: black;
+}
+
 .description {
   text-indent: 1rem;
 }

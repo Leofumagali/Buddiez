@@ -7,6 +7,7 @@ import styles from './styles.module.scss'
 
 interface FeedPostProps {
   owner_id: string
+  postid: string
   location: string
   image_url: string
   likes: []
@@ -14,6 +15,8 @@ interface FeedPostProps {
   description: string
   created_time: string
   handleOpenPostModal: () => void
+  savePost: (arg: string) => void
+  removeSavePost: (arg: string) => void
 }
 
 interface Owner {
@@ -22,7 +25,7 @@ interface Owner {
   profile_pic: string
 }
 
-export function FeedPost({ owner_id, location, image_url, likes, isFavorite, description, created_time, handleOpenPostModal}:FeedPostProps) {
+export function FeedPost({ owner_id, postid, location, image_url, likes, isFavorite, description, created_time, handleOpenPostModal, savePost, removeSavePost }:FeedPostProps) {
   const [owner, setOwner] = useState<Owner>()
 
   useEffect(() => {
@@ -38,9 +41,6 @@ export function FeedPost({ owner_id, location, image_url, likes, isFavorite, des
       })
   }
 
-  let handleComment = () => {
-
-  }
 
   dayjs.extend(relativeTime)
   let timeAgo = dayjs(created_time).fromNow()
@@ -65,12 +65,21 @@ export function FeedPost({ owner_id, location, image_url, likes, isFavorite, des
       <div className={styles.postIcons}>
         <div className={styles.leftIcons}>
           <PawPrint size={32} />
-          <ChatCircleDots size={32} />
+          <div onClick={handleOpenPostModal}>
+            <ChatCircleDots size={32} />
+          </div>
           <span>{likes.length} people liked this</span>
         </div>
         <div className={styles.rightIcons}>
           <DotsThreeOutline size={32} />
-          <TagSimple size={32} />
+          {false 
+            ? <div onClick={() => savePost(postid)}>
+              <TagSimple size={32} className={styles.savedPost} />
+            </div>
+            : <div onClick={() => removeSavePost(postid)}>
+              <TagSimple size={32} className={styles.unsavedPost} />
+            </div>
+            }
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { GenderFemale, GenderMale, NotePencil } from 'phosphor-react'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { SideMenu } from '../../components/SideMenu'
 import cat from '/Cat.svg'
@@ -26,15 +26,25 @@ type GetUserResponse = {
 
 interface ProfileProps {
   username: string
+  profile_pic: string
   userid: string
   verifyToken: () => void
+
   isPostModalOpen: boolean
   setIsPostModalOpen: (arg: boolean) => void
   handleOpenPostModal: () => void
   handleClosePostModal: () => void
+
+  isCreatePostModalOpen: boolean
+  setIsCreatePostModalOpen: (arg: boolean) => void
+  handleOpenCreatePostModal: () => void
+  handleCloseCreatePostModal: () => void
+
+  savePost: (arg: string) => void
+  removeSavePost: (arg: string) => void
 }
 
-export function Profile({ username, userid, verifyToken, isPostModalOpen, setIsPostModalOpen, handleOpenPostModal, handleClosePostModal }:ProfileProps) {
+export function Profile({ username, profile_pic, userid, verifyToken, isPostModalOpen, setIsPostModalOpen, handleOpenPostModal, handleClosePostModal, isCreatePostModalOpen, setIsCreatePostModalOpen, handleOpenCreatePostModal, handleCloseCreatePostModal, savePost, removeSavePost }:ProfileProps) {
   const [user, setUser] = useState<User>({
     name: '',
     username: '',
@@ -50,11 +60,11 @@ export function Profile({ username, userid, verifyToken, isPostModalOpen, setIsP
   const [loadingPosts, setLoadingPosts] = useState(false)
   const [isEditProfileModalOpen, 
     setIsEditProfileModalOpen] = useState<boolean>(false)
+  const [isFollowingThisProfile, 
+      setIsFollowingThisProfile] = useState<boolean>(false)
 
   let { username_or_id } = useParams()
-  
-  const [isFollowingThisProfile, 
-    setIsFollowingThisProfile] = useState<boolean>(false)
+  let location = useLocation()
 
   useEffect(() => {
     verifyToken()
@@ -142,6 +152,9 @@ export function Profile({ username, userid, verifyToken, isPostModalOpen, setIsP
     <div className={styles.container}>
       <SideMenu 
         username={username}
+        isOpen={isCreatePostModalOpen}
+        onRequestClose={handleCloseCreatePostModal}
+        handleOpenCreatePostModal={handleOpenCreatePostModal}
       />
 
       <main>
@@ -230,6 +243,8 @@ export function Profile({ username, userid, verifyToken, isPostModalOpen, setIsP
         <PostModal 
           isOpen={isPostModalOpen}
           onRequestClose={handleClosePostModal}
+          username={username}
+          profile_pic={profile_pic}
         />
       </main>
     </div>

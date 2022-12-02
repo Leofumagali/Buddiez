@@ -30,10 +30,9 @@ interface PostModalProps {
 
 export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostModalProps) {
   const [post, setPost] = useState<any>({})
-  const [postId, setPostId] = useState('638727b104973c79a9138b52')
+  const [postId, setPostId] = useState('6389b9c5aea9388899767888')
   const [listOfComments, setListOfComments] = useState<any>([])
   const [newComment, setNewComment] = useState('')
-  const [isUserComment, setIsUserComment] = useState(true)
 
   useEffect(() => {
     getPost()
@@ -41,6 +40,7 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
 
   useEffect(() => {
     scrollCommentsDown()
+    console.log(post)
   }, [post])
 
   const getPost = async () => {
@@ -60,6 +60,7 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
           })
           .then(res => {
             getPost()
+            setNewComment('')
           })
           .catch(error => {
             console.log(`Something went wrong: ${error}`)
@@ -81,13 +82,16 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault()
-    addNewComment()
+    if(newComment.length > 0) {
+      addNewComment()
+    }
   }
 
   const scrollCommentsDown = () => {
     let allCommentsElement = document.getElementById('allComments') as HTMLInputElement | null 
     allCommentsElement?.scrollTo({
       top: 99999,
+      behavior: 'smooth'
     });
   }
 
@@ -109,9 +113,9 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
           <div className={styles.postInfos}>
             <div className={styles.userInfos}>
               <div className={styles.userPhoto}>
-                <img src={profile_pic} alt="" />
+                <img src={post.owner_id?.profile_pic}/>
               </div>
-              <h1>{username}</h1>
+              <h1>{post.owner_id?.username}</h1>
             </div>
 
             <div className={styles.location}>
@@ -152,7 +156,7 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
             {listOfComments.map((item:any, idx: number) => {
               return (<div key={idx} className={styles.commentCard}>
                 <div className={styles.mainComment} >
-                  {(username === item.user_id.username) 
+                  {(username === item.user_id?.username) 
                     && <div 
                         className={styles.deleteComment}
                         onClick={() => deleteComment(item._id)}
@@ -160,9 +164,9 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
                         <Trash size={20} />
                     </div>
                   }
-                  <Cat size={50} />
+                  <img src={item.user_id?.profile_pic} className={styles.commentProfilePhoto} />
                   <div>
-                    <h1>{item.user_id.username}</h1>
+                    <h1>{item.user_id?.username}</h1>
                     <p>{item.message}</p>
                   </div>
                 </div>
@@ -179,6 +183,7 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
               id='commentInput'
               placeholder='Comment something...'
               type="text" 
+              value={newComment}
               onChange={e => {setNewComment(e.target.value)}}
             />
           </form>

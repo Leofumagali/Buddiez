@@ -16,44 +16,42 @@ const modalLayout = {
   }
 }
 
-interface EditProfileModalProps {
+interface CreatePostModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
 }
 
-export function EditProfileModal({isOpen, onRequestClose}:EditProfileModalProps) {
-  const [newName, setNewName] = useState('')
-  const [newUsername, setNewUsername] = useState('')
-  const [newDescription, setNewDescription] = useState('')
-  const [newProfilePicURL, setNewProfilePicURL] = useState('')
-  const [newProfilePicID, setNewProfilePicID] = useState('')
+export function CreatePostModal({isOpen, onRequestClose}:CreatePostModalProps) {
+  const [postLocation, setPostLocation] = useState('')
+  const [description, setDescription] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
+  const [imagePublicId, setImagePublicId] = useState('')
 
   const uploadWidget = window.cloudinary.createUploadWidget({
       cloud_name: import.meta.env.VITE_CLOUD_NAME,
-      upload_preset: import.meta.env.VITE_UPLOAD_PRESET_PROFILE,
-      tags: ['profile_pic'],
+      upload_preset: import.meta.env.VITE_UPLOAD_PRESET_POST_PIC,
+      tags: ['post_pic'],
       sources: ['local'],
     }, (error: any, result: any) => {
       if(error) {
-        console.log(`Something went wrong: ${error}`)
+        console.log(`Something went wrong: ${error.status} and ${error.statusText}`)
       } else {
         if(result.info.secure_url) {
-          setNewProfilePicURL(result.info.secure_url)
-          setNewProfilePicID(result.info.public_id)
+          setImageUrl(result.info.secure_url)
+          setImagePublicId(result.info.public_id)
         }
       }
     })
   
   const openWidget = () => uploadWidget.open()
-
-  const editProfile = async () => {
+    console.log(postLocation, description, imageUrl, imagePublicId)
+  const createPost = async () => {
     await axios
-            .patch(`${import.meta.env.VITE_BASE_URL}/user/editprofile`, {
-              name: newName,
-              username: newUsername,
-              description: newDescription,
-              profile_pic: newProfilePicURL,
-              profile_pic_id: newProfilePicID,
+            .put(`${import.meta.env.VITE_BASE_URL}/post/create`, {
+              location: postLocation,
+              description: description,
+              imageURL: imageUrl,
+              image_public_id: imagePublicId,
             })
             .then(res => {
               window.location.reload()
@@ -65,9 +63,9 @@ export function EditProfileModal({isOpen, onRequestClose}:EditProfileModalProps)
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault()
-    editProfile()
+    createPost()
   }
-  
+
   return (
     <Modal
       isOpen={isOpen}
@@ -81,28 +79,20 @@ export function EditProfileModal({isOpen, onRequestClose}:EditProfileModalProps)
 
       <form className={styles.container} onSubmit={handleSubmit}>
         <div className={styles.uploadPicture} onClick={openWidget}>
-          {newProfilePicURL ? <img src={newProfilePicURL} /> : <FileArrowDown size={36} />}
+          {imageUrl ? <img src={imageUrl} /> : <FileArrowDown size={36} />}
         </div>
         <Input
           width='100%'
           height='20px'
           padding='20px'
           type='text'
-          placeholder='New name'
-          action={setNewName}
-        />
-        <Input
-          width='100%'
-          height='20px'
-          padding='20px'
-          type='text'
-          placeholder='New username'
-          action={setNewUsername}
+          placeholder='Where were you? (Location)'
+          action={setPostLocation}
         />
         <textarea 
           className={styles.descriptionInput}
-          onChange={e => setNewDescription(e.target.value)}
-          placeholder='New Description...'
+          onChange={e => setDescription(e.target.value)}
+          placeholder='Description...'
         />
         <Button 
           name='Send'

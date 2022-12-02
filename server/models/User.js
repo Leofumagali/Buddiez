@@ -25,7 +25,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'https://64.media.tumblr.com/58ad30500e096781e56e5f31e50c561c/0767393739a2484f-05/s540x810/2bfbc14411783260ef0d80c4cafd99a55a12aca1.pnj'
   },
-  profile_pic_id: String,
+  profile_pic_id: {
+    type: String,
+    default: '',
+  },
   birthday: {
     type: Date,
     required: true

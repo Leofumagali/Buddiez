@@ -40,6 +40,11 @@ a:link {
     align-items: center;
     gap: 8px;
     font-size: 1.1rem;
+    cursor: pointer;
+
+    &:hover {
+      color: blue;
+    }
 
     a {
       display: flex;

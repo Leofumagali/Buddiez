@@ -64,7 +64,7 @@ class PostController {
     const { postid } = req.params
 
     try {
-      let specificPost = await Post.findOne({ _id: postid}).populate('comments.user_id')
+      let specificPost = await Post.findOne({ _id: postid}).populate('owner_id').populate('comments.user_id')
       res.status(200).send({status: 'success', data: specificPost})
     } catch (error) {
       res.status(404).send({status: 'failure', message: `Post could not be found`})
