@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ChatCircleDots, DotsThreeOutline, PawPrint, TagSimple, Trash } from 'phosphor-react';
+import trashicon from '../../../public/trash-icon.svg'
 import { useEffect, useState } from 'react';
 import Modal from 'react-modal'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -23,16 +24,20 @@ const modalLayout = {
 }
 
 interface PostModalProps {
-  isOpen: boolean;
+  isLogIn: boolean
+  isOpen: boolean
   onRequestClose: () => void;
   username: string
   profile_pic: string
 }
 
-export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostModalProps) {
+export function PostModal({ isLogIn, isOpen, onRequestClose, username }:PostModalProps) {
   const [post, setPost] = useState<any>({})
   const [listOfComments, setListOfComments] = useState<any>([])
   const [newComment, setNewComment] = useState('')
+  const [isCommentInputDisabled, setIsCommentInputDisabled] = useState<boolean>(!isLogIn)
+  console.log(isLogIn)
+  let placeHolderMessage = isLogIn ? 'Comment something...' : 'Log in to comment something'
 
   let navigate = useNavigate()
   let { postid } = useParams()
@@ -105,7 +110,7 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
       behavior: 'smooth'
     });
   }
-  console.log(listOfComments)
+
   const inputField = document.getElementById('commentInput') as HTMLInputElement | null;
   const focusOnInput = () => inputField!.focus()
 
@@ -173,7 +178,7 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
                         className={styles.deleteComment}
                         onClick={() => deleteComment(item._id)}
                       >
-                        <Trash size={20} />
+                        <img src={trashicon} className={styles.trashIcon} />
                     </div>
                   }
                   <img src={item.user_id?.profile_pic} className={styles.commentProfilePhoto} />
@@ -188,17 +193,18 @@ export function PostModal({isOpen, onRequestClose, username, profile_pic}:PostMo
               </div>
               )
             })
-            : <p className={styles.noPostMessage}>Sorry, no comments yet, be the first!</p>
+            : <p className={styles.noPostMessage}>No comments yet, be the first!</p>
             } 
           </div>
 
           <form onSubmit={handleSubmit} className={styles.commentInput}>
             <input 
               id='commentInput'
-              placeholder='Comment something...'
+              placeholder={placeHolderMessage}
               type="text" 
               value={newComment}
               onChange={e => {setNewComment(e.target.value)}}
+              disabled={isCommentInputDisabled}
             />
           </form>
         </section>

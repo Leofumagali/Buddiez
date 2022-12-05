@@ -47,7 +47,7 @@ export function Login({isLogIn, setIsLogIn, setToken}:LoginProps) {
           localStorage.setItem('token', token)
           setToken(token)
           setIsLogIn(true)
-          setTimeout(() => navigate('/feed'), 500)
+          setTimeout(() => navigate('/'), 500)
         }
       )
       .catch( error => {

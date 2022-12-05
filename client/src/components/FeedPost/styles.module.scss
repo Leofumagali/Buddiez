@@ -40,13 +40,17 @@
   }
 }
 
+.likeIcon {
+  cursor: pointer;
+}
+
 .rightInfo {
   align-self: end;
   margin-right: 10px;
 }
 
 .postImage {
-  background-color: rgb(127, 214, 243);
+  background-color: #f7f9f8;
   width: 600px;
   height: 500px;
   border-radius: 10px;

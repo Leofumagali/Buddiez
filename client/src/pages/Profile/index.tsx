@@ -3,11 +3,9 @@ import { GenderFemale, GenderMale, NotePencil } from 'phosphor-react'
 import { useEffect, useState } from 'react'
 import { useParams, useLocation, Link } from 'react-router-dom'
 import { Button } from '../../components/Button'
-import { SideMenu } from '../../components/SideMenu'
 import cat from '/Cat.svg'
 import styles from './styles.module.scss'
 import { EditProfileModal } from '../../components/EditProfileModal'
-import { PostModal } from '../../components/PostModal'
 
 interface User {
   name: string
@@ -26,25 +24,11 @@ type GetUserResponse = {
 
 interface ProfileProps {
   username: string
-  profile_pic: string
   userid: string
   verifyToken: () => void
-
-  isPostModalOpen: boolean
-  setIsPostModalOpen: (arg: boolean) => void
-  handleOpenPostModal: () => void
-  handleClosePostModal: () => void
-
-  isCreatePostModalOpen: boolean
-  setIsCreatePostModalOpen: (arg: boolean) => void
-  handleOpenCreatePostModal: () => void
-  handleCloseCreatePostModal: () => void
-
-  savePost: (arg: string) => void
-  removeSavePost: (arg: string) => void
 }
 
-export function Profile({ username, profile_pic, userid, verifyToken, isPostModalOpen, setIsPostModalOpen, handleOpenPostModal, handleClosePostModal, isCreatePostModalOpen, setIsCreatePostModalOpen, handleOpenCreatePostModal, handleCloseCreatePostModal, savePost, removeSavePost }:ProfileProps) {
+export function Profile({ username, userid, verifyToken }:ProfileProps) {
   const [user, setUser] = useState<User>({
     name: '',
     username: '',
@@ -113,7 +97,7 @@ export function Profile({ username, profile_pic, userid, verifyToken, isPostModa
   let handleFollow = async () => {
     await axios
       .post(`${import.meta.env.VITE_BASE_URL}/user/follow`, {
-        username: username_or_id
+        id: username_or_id
       })
       .then(res => {
         setIsFollowingThisProfile(true)
@@ -127,7 +111,7 @@ export function Profile({ username, profile_pic, userid, verifyToken, isPostModa
   let handleUnfollow = async () => {
     await axios
       .post(`${import.meta.env.VITE_BASE_URL}/user/unfollow`, {
-        username: username_or_id
+        id: username_or_id
       })
       .then(res => {
         setIsFollowingThisProfile(false)
@@ -148,13 +132,6 @@ export function Profile({ username, profile_pic, userid, verifyToken, isPostModa
   
   return (
     <div className={styles.container}>
-      <SideMenu 
-        username={username}
-        isOpen={isCreatePostModalOpen}
-        onRequestClose={handleCloseCreatePostModal}
-        handleOpenCreatePostModal={handleOpenCreatePostModal}
-      />
-
       <main>
         <section className={styles.profileContainer}>
           <div className={styles.profileInfos}>

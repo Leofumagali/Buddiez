@@ -6,8 +6,10 @@ router.put('/create', postController.createNewPost)
 router.delete('/delete', postController.deletePost)
 
 router.get('/allposts', postController.getAllPosts)
-router.get('/:postid', postController.getSpecificPost)
+router.post('/likepost', postController.likePost)
+router.post('/unlikepost', postController.unlikePost)
 router.post('/savepost', postController.saveFavoritePost)
 router.delete('/unsavepost', postController.deleteFavoritePost)
+router.get('/:postid', postController.getSpecificPost)
 
 module.exports = router

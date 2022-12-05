@@ -1,9 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { FeedPost } from '../../components/FeedPost'
-import { SideMenu } from '../../components/SideMenu'
 import styles from './styles.module.scss'
-import { CreatePostModal } from '../../components/CreatePostModal'
 
 interface Post {
   owner_id: string
@@ -16,34 +14,33 @@ interface Post {
 }
 
 interface FeedProps {
-  username: string
-  profile_pic: string
+  userid: string
+  favoritePosts: []
   verifyToken: () => void
+  scrollHistory: number
 
-  isPostModalOpen: boolean
-  setIsPostModalOpen: (arg: boolean) => void
   handleOpenPostModal: () => void
-  handleClosePostModal: () => void
 
-  isCreatePostModalOpen: boolean
-  setIsCreatePostModalOpen: (arg: boolean) => void
-  handleOpenCreatePostModal: () => void
-  handleCloseCreatePostModal: () => void
-
+  likePost: (arg: string) => void
+  unlikePost: (arg: string) => void
   savePost: (arg: string) => void
   removeSavePost: (arg: string) => void
 }
 
 export function Feed({
-  username, profile_pic, verifyToken, 
-  isPostModalOpen, setIsPostModalOpen, handleOpenPostModal, handleClosePostModal, 
-  isCreatePostModalOpen, setIsCreatePostModalOpen, handleOpenCreatePostModal, handleCloseCreatePostModal, 
+  userid,
+  favoritePosts,
+  verifyToken, 
+  handleOpenPostModal,
+  scrollHistory,
+  likePost, unlikePost,
   savePost, removeSavePost}:FeedProps) {
   const [listOfPosts, setListOfPosts] = useState<Post[]>([])
 
   useEffect(() => {
     verifyToken()
     getPosts()
+    window.scrollTo(scrollHistory, 0)
   }, [])
 
   let getPosts = async () => {
@@ -57,19 +54,14 @@ export function Feed({
 
   return (
     <div className={styles.containerFeed}>
-      <SideMenu 
-        username={username}
-        isOpen={isPostModalOpen}
-        onRequestClose={handleClosePostModal}
-        handleOpenCreatePostModal={handleOpenCreatePostModal}
-      />
-      
       <main>
         <div className={styles.feedContainer}>
           {listOfPosts.length > 0 && listOfPosts.map((item, idx) => {
             return (
               <FeedPost 
                 key={idx}
+                userid={userid}
+                favoritePosts={favoritePosts}
                 image_url={item.image_url}
                 location={item.location}
                 owner_id={item.owner_id}
@@ -78,17 +70,14 @@ export function Feed({
                 likes={item.likes}
                 created_time={item.created_time}
                 handleOpenPostModal={handleOpenPostModal}
+                likePost={likePost}
+                unlikePost={unlikePost}
                 savePost={savePost}
                 removeSavePost={removeSavePost}
               />
             )
           })}
         </div>
-
-        <CreatePostModal 
-          isOpen={isCreatePostModalOpen}
-          onRequestClose={handleCloseCreatePostModal}
-        />
       </main>
     </div>
   )

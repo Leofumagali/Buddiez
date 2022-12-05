@@ -1,21 +1,26 @@
 import axios from 'axios'
 import { ChatCircleDots, DotsThreeOutline, PawPrint, TagSimple } from 'phosphor-react'
-import { Link, useNavigate } from 'react-router-dom'
+import likeIcon from '../../../public/like-icon.svg'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import styles from './styles.module.scss'
 
 interface FeedPostProps {
+  userid: string
+  favoritePosts: FavoritePosts[]
   owner_id: string
   postid: string
   location: string
   image_url: string
-  likes: []
+  likes: LikeProfile[]
   isFavorite?: boolean
   description: string
   created_time: string
   handleOpenPostModal: () => void
+  likePost: (arg: string) => void
+  unlikePost: (arg: string) => void
   savePost: (arg: string) => void
   removeSavePost: (arg: string) => void
 }
@@ -26,8 +31,20 @@ interface Owner {
   profile_pic: string
 }
 
-export function FeedPost({ owner_id, postid, location, image_url, likes, isFavorite, description, created_time, handleOpenPostModal, savePost, removeSavePost }:FeedPostProps) {
+interface LikeProfile {
+  user_id: string
+}
+
+interface FavoritePosts {
+  post_id: string
+}
+
+export function FeedPost({ userid, owner_id, postid, favoritePosts, location, image_url, likes, isFavorite, description, created_time, likePost, unlikePost, savePost, removeSavePost }:FeedPostProps) {
   const [owner, setOwner] = useState<Owner>()
+  const [numberOfLikes, setNumberOfLikes] = useState<number>(likes.length)
+  const [userLikeThisPost, setUserLikeThisPost] = useState<boolean>(likes.some(item => item.user_id === userid))
+  const [userSavedThisPost, setUserSavedThisPost] = useState<any>(favoritePosts.some(item => item.post_id === postid))
+
   let navigate = useNavigate()
 
   useEffect(() => {
@@ -43,16 +60,40 @@ export function FeedPost({ owner_id, postid, location, image_url, likes, isFavor
       })
   }
 
+  const likePostAndChangeIconStatus = () => {
+    likePost(postid)
+    setNumberOfLikes(numberOfLikes+1)
+    setUserLikeThisPost(true)
+  }
+
+  const unlikePostAndChangeIconStatus = () => {
+    unlikePost(postid)
+    setNumberOfLikes(numberOfLikes-1)
+    setUserLikeThisPost(false)
+  }
+  console.log(userSavedThisPost)
+  const savePostAndChangeIconStates = () => {
+    savePost(postid)
+    setUserSavedThisPost(true)
+  }
+
+  const removeSavePostAndChangeIconStates = () => {
+    removeSavePost(postid)
+    setUserSavedThisPost(false)
+  }
+
   dayjs.extend(relativeTime)
   let timeAgo = dayjs(created_time).fromNow()
 
   return (
     <div className={styles.postContainer}>
       <div className={styles.postInfo}>
-        <div className={styles.leftInfo}>
-          <img src={owner?.profile_pic} />
-          <h1>{owner?.username}</h1>
-        </div>
+        <NavLink 
+          to={`/profile/${owner_id}`}
+          className={styles.leftInfo}>
+            <img src={owner?.profile_pic} />
+            <h1>{owner?.username}</h1>
+        </NavLink>
 
         <div className={styles.rightInfo}>
           {location}
@@ -69,20 +110,28 @@ export function FeedPost({ owner_id, postid, location, image_url, likes, isFavor
 
       <div className={styles.postIcons}>
         <div className={styles.leftIcons}>
-          <PawPrint size={32} />
+          <div className={styles.likeIcon}>
+            {userLikeThisPost 
+              ? <div onClick={unlikePostAndChangeIconStatus}>
+                <PawPrint size={32} color='red'/>
+              </div> 
+              : <div onClick={likePostAndChangeIconStatus}>
+                <PawPrint size={32} color='black' />
+              </div> }
+          </div>
           <div onClick={() => navigate(`/post/${postid}`)}>
             <ChatCircleDots size={32} />
           </div>
-          <span>{likes.length} people liked this</span>
+          <span>{numberOfLikes} people liked this</span>
         </div>
         <div className={styles.rightIcons}>
           <DotsThreeOutline size={32} />
-          {false 
-            ? <div onClick={() => savePost(postid)}>
-              <TagSimple size={32} className={styles.savedPost} />
+          {userSavedThisPost
+            ? <div onClick={removeSavePostAndChangeIconStates}>
+              <TagSimple size={32} color='red' />
             </div>
-            : <div onClick={() => removeSavePost(postid)}>
-              <TagSimple size={32} className={styles.unsavedPost} />
+            : <div onClick={savePostAndChangeIconStates}>
+              <TagSimple size={32} color='black' />
             </div>
             }
         </div>

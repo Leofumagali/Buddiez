@@ -12,16 +12,18 @@ class CommentsController {
     }
 
     try {
-      await Post.findOneAndUpdate({ _id: postid }, {
-            $push: { 
-              comments: {
-                user_id: userProfile._id,
-                message: message,
-                timestamp: new Date
-            }}
-          }
-        )
-      res.status(200).send({status: 'success', message: `Comment added`})
+    await Post.findOneAndUpdate({ _id: postid }, {
+          $push: { 
+            comments: {
+              user_id: userProfile._id,
+              message: message,
+              timestamp: new Date
+          }}
+        }
+      )
+    
+    res.status(200).send({status: 'success', message: `Comment added`})
+
     } catch (error) {
       res.status(401).send({status: 'failure', message: `Comment could not be added`, error: error})
     }
@@ -30,7 +32,7 @@ class CommentsController {
   async deleteComment (req, res) {
     const { postid, commentid } = req.body
     let userProfile = await userVerification(req, res)
-
+    console.log(userProfile)
     if(!userProfile) {
       return res.status(401).send({status: 'failure', message: `Authentication failed`})
     }
@@ -48,7 +50,6 @@ class CommentsController {
       res.status(401).send({status: 'failure', message: `Comment could not be deleted`, error: error})
     }
   }
-
 }
 
 module.exports = new CommentsController()

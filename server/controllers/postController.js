@@ -114,6 +114,53 @@ class PostController {
       res.status(404).send({status: 'failure', message: `Favorite post could not be deleted`})
     }
   }
+
+  async likePost(req, res) {
+    const { postid } = req.body
+    const userProfile = await userVerification(req, res)
+
+    if(!userProfile) {
+      return res.status(401).send({status: 'failure', message: `Authentication failed`})
+    }
+
+    try {
+      await Post.findOneAndUpdate({ _id: postid }, {
+        $push: {
+          likes: {
+            user_id: userProfile._id
+          }
+        }
+      })
+
+      res.status(200).send({status: 'success', message: `Post liked`})
+    } catch(error) {
+      res.status(404).send({status: 'failure', message: `Post could not be liked`})
+    }
+  }
+
+  async unlikePost(req, res) {
+    const { postid } = req.body
+    const userProfile = await userVerification(req, res)
+
+    if(!userProfile) {
+      return res.status(401).send({status: 'failure', message: `Authentication failed`})
+    }
+
+    try {
+      await Post.findOneAndUpdate({ _id: postid }, {
+        $pull: {
+          likes: {
+            user_id: userProfile._id
+          }
+        }
+      })
+      console.log(userProfile._id, postid)
+      res.status(200).send({status: 'success', message: `Post unliked`})
+    } catch(error) {
+      res.status(404).send({status: 'failure', message: `Post could not be unliked`})
+    }
+  }
+
 }
 
 module.exports = new PostController()

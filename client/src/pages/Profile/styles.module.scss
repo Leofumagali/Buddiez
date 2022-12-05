@@ -1,10 +1,12 @@
 .container {
   display: flex;
+  width: 100%;
 }
 
 main {
   width: 100%;
   min-width: 900px;
+  margin: 0 auto;
 }
 
 .profileContainer {
@@ -108,7 +110,7 @@ main {
 }
 
 .postDiv {
-  background-color: lightblue;
+  background-color: #f7f9f8;
   width: 247px;
   height: 247px;
   cursor: pointer;

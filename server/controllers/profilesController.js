@@ -29,23 +29,23 @@ class ProfilesController {
   }
 
   async followProfile(req, res) {
-    const { username } = req.body
+    const { id } = req.body
     let userProfile = await userVerification(req, res)
-    
+
     if(!userProfile) {
       return res.status(401).send({status: 'failure', message: `Authentication failed.`})
     }
-
+    
     try {
-      await User.findOneAndUpdate({ username }, {
+      await User.findOneAndUpdate({ _id: id }, {
         $push: {
           followers: {
             follower_id: userProfile._id
           }
         }
       })
-
-      let userToGetProfileId = await User.findOne({ username })
+      
+      let userToGetProfileId = await User.findOne({ _id: id })
 
       await User.findOneAndUpdate({ _id: userProfile._id }, {
         $push: {
@@ -62,7 +62,7 @@ class ProfilesController {
   }
 
   async unfollowProfile(req, res) {
-    const { username } = req.body
+    const { id } = req.body
     let userProfile = await userVerification(req, res)
     
     if(!userProfile) {
@@ -70,7 +70,7 @@ class ProfilesController {
     }
 
     try {
-      await User.findOneAndUpdate({ username }, {
+      await User.findOneAndUpdate({ _id: id }, {
         $pull: {
           followers: {
             follower_id: userProfile._id
@@ -78,7 +78,7 @@ class ProfilesController {
         }
       })
 
-      let userToGetProfileId = await User.findOne({ username })
+      let userToGetProfileId = await User.findOne({ _id: id })
 
       await User.findOneAndUpdate({ _id: userProfile._id }, {
         $pull: {

@@ -2,7 +2,7 @@ const express = require('express'),
       router = express.Router(),
       profilesController = require('../controllers/profilesController')
 
-  router.post('/profile', profilesController.showAllProfilesThatMatches)
+  router.post('/search', profilesController.showAllProfilesThatMatches)
   router.post('/follow', profilesController.followProfile)
   router.post('/unfollow', profilesController.unfollowProfile)
   router.get('/favorites/:profileid', profilesController.showFavoritePosts)

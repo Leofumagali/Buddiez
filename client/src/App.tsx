@@ -9,6 +9,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { PostModal } from './components/PostModal';
 import { SinglePost } from './pages/SinglePost';
+import { SideMenu } from './components/SideMenu';
+import { CreatePostModal } from './components/CreatePostModal';
+import { SearchModal } from './components/SearchModal';
 
 export function App() {
   useTheme(themes.light)
@@ -16,23 +19,37 @@ export function App() {
   const [isLogIn, setIsLogIn] = useState<boolean>(false)
   const [user, setUser] = useState<any>({})
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  const [scrollPosition, setScrollPosition] = useState(0)
 
   const [isPostModalOpen, setIsPostModalOpen] = useState<boolean>(false)
   const [isCreatePostModalOpen, 
     setIsCreatePostModalOpen] = useState<boolean>(false)
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false)
 
   const handleOpenPostModal = () => setIsPostModalOpen(true)
   const handleClosePostModal = () => setIsPostModalOpen(false)
   
   const handleOpenCreatePostModal = () => setIsCreatePostModalOpen(true)
   const handleCloseCreatePostModal = () => setIsCreatePostModalOpen(false)
-  
-  let location = useLocation()
-  let state = location.state as { backgroundLocation?: Location }
 
+  const handleOpenSearchModal = () => setIsSearchModalOpen(true)
+  const handleCloseSearchModal = () => setIsSearchModalOpen(false)
+  
+  let pathname = window.location.pathname
+  
   useEffect(() => {
     verifyToken()
   }, [])
+
+  // Trying to implement scroll history
+  // useEffect(() => {
+  //   const onScroll = (e: any) => {
+  //     setScrollPosition(e.target.documentElement.scrollTop)
+  //   }
+
+  //   window.addEventListener('scroll', onScroll)
+  //   return () => window.removeEventListener('scroll', onScroll)
+  // }, [scrollPosition])
 
   let verifyToken = async () => {
     if(!token) {
@@ -53,6 +70,32 @@ export function App() {
 
     }
   }
+  
+  const likePost = async (postid: string) => {
+    await axios
+          .post(`${import.meta.env.VITE_BASE_URL}/post/likepost`, {
+            postid: postid
+          })
+          .then(res => {
+            console.log(res.data)
+          })
+          .catch(error => {
+            console.log(`Something went wrong: ${error}`)
+          })
+  }
+
+  const unlikePost = async (postid: string) => {
+    await axios
+          .post(`${import.meta.env.VITE_BASE_URL}/post/unlikepost`, {
+            postid: postid
+          })
+          .then(res => {
+            console.log(res.data)
+          })
+          .catch(error => {
+            console.log(`Something went wrong: ${error}`)
+          })
+  }
 
   const savePost = async (postid: string) => {
     await axios
@@ -66,7 +109,7 @@ export function App() {
             console.log(`Something went wrong: ${error}`)
           })
   }
-
+  
   const removeSavePost = async (postid: string) => {
     await axios
           .delete(`${import.meta.env.VITE_BASE_URL}/post/unsavepost`, {
@@ -81,84 +124,82 @@ export function App() {
             console.log(`Something went wrong: ${error}`)
           })
   }
-
+  
   return (
     <div className="App">
+      {pathname === '/login' || <SideMenu 
+        isLogIn={isLogIn}
+        username={user.username}
+        isOpen={isPostModalOpen}
+        onRequestClose={handleClosePostModal}
+        handleOpenCreatePostModal={handleOpenCreatePostModal}
+        handleOpenSearchModal={handleOpenSearchModal}
+      />}
+
       <Routes>
-        <Route path='/' element={isLogIn 
-          ? <Navigate to='/feed' /> 
+        <Route path='/login' element={isLogIn 
+          ? <Navigate to='/' /> 
           : <Login 
               isLogIn={isLogIn} 
               setIsLogIn={setIsLogIn}
               setToken={setToken} 
-            />} 
+            />}
           />
 
-        <Route path='/feed' element={
-          <Feed 
-            username={user.username} 
-            profile_pic={user.profile_pic}
+        <Route path='/' element={
+          <Feed
+            userid={user._id}
+            favoritePosts={user.favorite_posts}
             verifyToken={verifyToken}
+            scrollHistory={scrollPosition}
 
-            isPostModalOpen={isPostModalOpen}
-            setIsPostModalOpen={setIsPostModalOpen}
             handleOpenPostModal={handleOpenPostModal}
-            handleClosePostModal={handleClosePostModal}
 
-            isCreatePostModalOpen={isCreatePostModalOpen}
-            setIsCreatePostModalOpen={setIsCreatePostModalOpen}
-            handleOpenCreatePostModal={handleOpenCreatePostModal}
-            handleCloseCreatePostModal={handleCloseCreatePostModal}
-
+            likePost={likePost}
+            unlikePost={unlikePost}
             savePost={savePost}
             removeSavePost={removeSavePost}
           />} 
         />
 
         <Route path='/profile/:username_or_id' element={
-          <Profile 
+          <Profile
             username={user.username}
-            profile_pic={user.profile_pic}
             verifyToken={verifyToken}
             userid={user._id}
-
-            isPostModalOpen={isPostModalOpen}
-            setIsPostModalOpen={setIsPostModalOpen}
-            handleOpenPostModal={handleOpenPostModal}
-            handleClosePostModal={handleClosePostModal}
-
-            isCreatePostModalOpen={isCreatePostModalOpen}
-            setIsCreatePostModalOpen={setIsCreatePostModalOpen}
-            handleOpenCreatePostModal={handleOpenCreatePostModal}
-            handleCloseCreatePostModal={handleCloseCreatePostModal}
-
-            savePost={savePost}
-            removeSavePost={removeSavePost}
           />} 
         />
 
         <Route path='/post/:postid' element={
-          <SinglePost 
+          <SinglePost
             username={user.username}
             profile_pic={user.profile_pic}
             onRequestClose={handleClosePostModal}
-            isCreatePostModalOpen={isCreatePostModalOpen}
-            handleOpenCreatePostModal={handleOpenCreatePostModal}
-            handleCloseCreatePostModal={handleCloseCreatePostModal}
-          />} 
+            isLogIn={isLogIn}
+          />}
         />
 
-        {state?.backgroundLocation && (
+        
         <Route path="/post/:postid" element={
           <PostModal 
             isOpen={true}
             onRequestClose={handleClosePostModal}
             username={user.username}
             profile_pic={user.profile_pic}
+            isLogIn={isLogIn}
           />} 
         />
-      )}
       </Routes>
+
+      <CreatePostModal 
+        isOpen={isCreatePostModalOpen}
+        onRequestClose={handleCloseCreatePostModal}
+      />
+
+      <SearchModal 
+        isOpen={isSearchModalOpen}
+        onRequestClose={handleCloseSearchModal}
+      />
     </div>
   )
 }

@@ -1,24 +1,30 @@
-import { Cat, GearSix, House, MagnifyingGlass, Sticker } from 'phosphor-react'
+import { Cat, GearSix, House, MagnifyingGlass, SignIn, Sticker } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
 import { CreatePostModal } from '../CreatePostModal'
 import styles from './styles.module.scss'
 
 interface SideMenuProps {
+  isLogIn: boolean
   username: string
   isOpen: boolean
   onRequestClose: () => void
   handleOpenCreatePostModal: () => void
+  handleOpenSearchModal: () => void
 }
 
-export function SideMenu({username, isOpen, onRequestClose, handleOpenCreatePostModal}:SideMenuProps) {
+export function SideMenu({ isLogIn, username, isOpen, onRequestClose, handleOpenCreatePostModal, handleOpenSearchModal }:SideMenuProps) {
   return (
     <nav>
       <ul className={styles.menuList}>
-        <li><NavLink to={'/login'}><h1>Buddiez</h1></NavLink></li>
-        <li onClick={handleOpenCreatePostModal}><Sticker size={32} />Post</li>
-        <li><NavLink to={'/feed'}><House size={32} />Feed</NavLink></li>
-        <li><NavLink to={`/profile/${username}`}><Cat size={32} />Profile</NavLink></li>
-        <li><MagnifyingGlass size={32} />Search</li>
+        <li><NavLink to={'/feed'}><h1>Buddiez</h1></NavLink></li>
+        {isLogIn || 
+          <li><NavLink to={`/login`}><SignIn size={32} />Log in</NavLink></li>}
+        {isLogIn && 
+          <li onClick={handleOpenCreatePostModal}><Sticker size={32} />Post</li>}
+        <li><NavLink to={'/'}><House size={32} />Feed</NavLink></li>
+        {isLogIn && 
+          <li><NavLink to={`/profile/${username}`}><Cat size={32} />Profile</NavLink></li>}
+        <li onClick={handleOpenSearchModal}><MagnifyingGlass size={32} />Search</li>
       </ul>
 
       <CreatePostModal 
