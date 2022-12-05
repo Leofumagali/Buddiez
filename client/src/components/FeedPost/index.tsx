@@ -8,6 +8,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import styles from './styles.module.scss'
 
 interface FeedPostProps {
+  isLogIn: boolean
   userid: string
   favoritePosts: FavoritePosts[]
   owner_id: string
@@ -39,11 +40,11 @@ interface FavoritePosts {
   post_id: string
 }
 
-export function FeedPost({ userid, owner_id, postid, favoritePosts, location, image_url, likes, isFavorite, description, created_time, likePost, unlikePost, savePost, removeSavePost }:FeedPostProps) {
+export function FeedPost({ isLogIn, userid, owner_id, postid, favoritePosts, location, image_url, likes, isFavorite, description, created_time, likePost, unlikePost, savePost, removeSavePost }:FeedPostProps) {
   const [owner, setOwner] = useState<Owner>()
   const [numberOfLikes, setNumberOfLikes] = useState<number>(likes.length)
-  const [userLikeThisPost, setUserLikeThisPost] = useState<boolean>(likes.some(item => item.user_id === userid))
-  const [userSavedThisPost, setUserSavedThisPost] = useState<any>(favoritePosts.some(item => item.post_id === postid))
+  const [userLikeThisPost, setUserLikeThisPost] = useState<boolean>(likes?.some(item => item.user_id === userid))
+  const [userSavedThisPost, setUserSavedThisPost] = useState<any>(favoritePosts?.some(item => item.post_id === postid))
 
   let navigate = useNavigate()
 
@@ -61,25 +62,33 @@ export function FeedPost({ userid, owner_id, postid, favoritePosts, location, im
   }
 
   const likePostAndChangeIconStatus = () => {
-    likePost(postid)
-    setNumberOfLikes(numberOfLikes+1)
-    setUserLikeThisPost(true)
+    if(isLogIn) {
+      likePost(postid)
+      setNumberOfLikes(numberOfLikes+1)
+      setUserLikeThisPost(true)
+    }
   }
 
   const unlikePostAndChangeIconStatus = () => {
-    unlikePost(postid)
-    setNumberOfLikes(numberOfLikes-1)
-    setUserLikeThisPost(false)
+    if(isLogIn) {
+      unlikePost(postid)
+      setNumberOfLikes(numberOfLikes-1)
+      setUserLikeThisPost(false)
+    }
   }
-  console.log(userSavedThisPost)
+  
   const savePostAndChangeIconStates = () => {
-    savePost(postid)
-    setUserSavedThisPost(true)
+    if(isLogIn) {
+      savePost(postid)
+      setUserSavedThisPost(true)
+    }
   }
 
   const removeSavePostAndChangeIconStates = () => {
-    removeSavePost(postid)
-    setUserSavedThisPost(false)
+    if(isLogIn) {
+      removeSavePost(postid)
+      setUserSavedThisPost(false)
+    }
   }
 
   dayjs.extend(relativeTime)

@@ -14,6 +14,7 @@ interface Post {
 }
 
 interface FeedProps {
+  isLogIn: boolean
   userid: string
   favoritePosts: []
   verifyToken: () => void
@@ -28,6 +29,7 @@ interface FeedProps {
 }
 
 export function Feed({
+  isLogIn,
   userid,
   favoritePosts,
   verifyToken, 
@@ -60,6 +62,7 @@ export function Feed({
             return (
               <FeedPost 
                 key={idx}
+                isLogIn={isLogIn}
                 userid={userid}
                 favoritePosts={favoritePosts}
                 image_url={item.image_url}

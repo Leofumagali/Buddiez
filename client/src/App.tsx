@@ -148,6 +148,7 @@ export function App() {
 
         <Route path='/' element={
           <Feed
+            isLogIn={isLogIn}
             userid={user._id}
             favoritePosts={user.favorite_posts}
             verifyToken={verifyToken}
