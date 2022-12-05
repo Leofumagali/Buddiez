@@ -114,6 +114,7 @@ export function Login({isLogIn, setIsLogIn, setToken}:LoginProps) {
             onRequestClose={handleCloseSignUpModal}
             isLogIn={isLogIn} 
             setIsLogIn={setIsLogIn}
+            setToken={setToken}
           />
         </section>
       </main>

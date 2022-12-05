@@ -12,6 +12,7 @@ interface SignUpModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
   setIsLogIn: (arg: boolean) => void
+  setToken: (arg: string) => void
 }
 
 const modalLayout = {
@@ -24,7 +25,7 @@ const modalLayout = {
   }
 }
 
-export function SignUpModal({isOpen, onRequestClose, isLogIn, setIsLogIn}:SignUpModalProps) {
+export function SignUpModal({ isOpen, onRequestClose, isLogIn, setIsLogIn, setToken }:SignUpModalProps) {
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -57,8 +58,9 @@ export function SignUpModal({isOpen, onRequestClose, isLogIn, setIsLogIn}:SignUp
       .then(res => {
           let { token } = res.data
           localStorage.setItem('token', token)
+          setToken(token)
           setIsLogIn(true)
-          setTimeout(() => navigate('/feed'), 500)
+          setTimeout(() => navigate('/'), 500)
         }
       )
       .catch( error => {
