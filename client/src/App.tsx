@@ -165,6 +165,7 @@ export function App() {
 
         <Route path='/profile/:username_or_id' element={
           <Profile
+            isLogIn={isLogIn}
             username={user.username}
             verifyToken={verifyToken}
             userid={user._id}

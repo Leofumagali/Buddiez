@@ -45,7 +45,7 @@ export function SignUpModal({isOpen, onRequestClose, isLogIn, setIsLogIn}:SignUp
 
   let createAccount = () => {
     axios
-      .put('http://localhost:4000/user/signup', {
+      .put(`${import.meta.env.VITE_BASE_URL}/user/signup`, {
         name: name,
         username: username,
         email: email,

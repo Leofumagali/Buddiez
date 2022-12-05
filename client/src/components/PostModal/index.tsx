@@ -3,7 +3,7 @@ import { ChatCircleDots, DotsThreeOutline, PawPrint, TagSimple, Trash } from 'ph
 import trashicon from '../../../public/trash-icon.svg'
 import { useEffect, useState } from 'react';
 import Modal from 'react-modal'
-import { useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import styles from './styles.module.scss'
@@ -36,7 +36,7 @@ export function PostModal({ isLogIn, isOpen, onRequestClose, username }:PostModa
   const [listOfComments, setListOfComments] = useState<any>([])
   const [newComment, setNewComment] = useState('')
   const [isCommentInputDisabled, setIsCommentInputDisabled] = useState<boolean>(!isLogIn)
-  console.log(isLogIn)
+  
   let placeHolderMessage = isLogIn ? 'Comment something...' : 'Log in to comment something'
 
   let navigate = useNavigate()
@@ -127,12 +127,14 @@ export function PostModal({ isLogIn, isOpen, onRequestClose, username }:PostModa
       <div className={styles.container}>
         <section className={styles.postSection}>
           <div className={styles.postInfos}>
-            <div className={styles.userInfos}>
-              <div className={styles.userPhoto}>
-                <img src={post.owner_id?.profile_pic}/>
-              </div>
-              <h1>{post.owner_id?.username}</h1>
-            </div>
+            <NavLink
+              to={`/profile/${post.owner_id?._id}`}
+              className={styles.userInfos}>
+                <div className={styles.userPhoto}>
+                  <img src={post.owner_id?.profile_pic}/>
+                </div>
+                <h1>{post.owner_id?.username}</h1>
+            </NavLink>
 
             <div className={styles.location}>
               {post.location}

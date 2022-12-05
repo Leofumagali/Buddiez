@@ -23,12 +23,13 @@ type GetUserResponse = {
 }
 
 interface ProfileProps {
+  isLogIn: boolean
   username: string
   userid: string
   verifyToken: () => void
 }
 
-export function Profile({ username, userid, verifyToken }:ProfileProps) {
+export function Profile({ isLogIn, username, userid, verifyToken }:ProfileProps) {
   const [user, setUser] = useState<User>({
     name: '',
     username: '',
@@ -152,31 +153,33 @@ export function Profile({ username, userid, verifyToken }:ProfileProps) {
                   />}
                 </div>
                 <div>
-                  {username !== user.username 
-                  ? isFollowingThisProfile
-                    ? <Button
-                      width='140px'
-                      height='40px'
-                      name='Unfollow'
-                      type='button'
-                      onClick={handleUnfollow}
-                      color='rgb(255, 90, 90)'
-                    /> 
-                    : <Button
-                      width='140px'
-                      height='40px'
-                      name='Follow'
-                      type='button'
-                      onClick={handleFollow}
-                      color='rgb(77, 207, 250)'
-                    /> 
-                  : <div 
-                      onClick={handleOpenEditProfileModal} 
-                      className={styles.editProfile}
-                    >
-                     <NotePencil size={34} />
-                    </div>
-                  }
+                  {isLogIn 
+                  ? username !== user.username 
+                    ? isFollowingThisProfile
+                      ? <Button
+                        width='140px'
+                        height='40px'
+                        name='Unfollow'
+                        type='button'
+                        onClick={handleUnfollow}
+                        color='rgb(255, 90, 90)'
+                      /> 
+                      : <Button
+                        width='140px'
+                        height='40px'
+                        name='Follow'
+                        type='button'
+                        onClick={handleFollow}
+                        color='rgb(77, 207, 250)'
+                      /> 
+                    : <div 
+                        onClick={handleOpenEditProfileModal} 
+                        className={styles.editProfile}
+                      >
+                      <NotePencil size={34} />
+                      </div>
+                  : <></>
+                }
                 <EditProfileModal 
                   isOpen={isEditProfileModalOpen}
                   onRequestClose={handleCloseEditProfileModal}
