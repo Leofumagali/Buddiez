@@ -31,3 +31,9 @@
  .App {
     display: flex;
  }
+
+@media (max-width: 950px) {
+    .App {
+        flex-direction: column;
+    }
+}

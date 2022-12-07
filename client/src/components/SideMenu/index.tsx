@@ -16,15 +16,15 @@ export function SideMenu({ isLogIn, username, isOpen, onRequestClose, handleOpen
   return (
     <nav>
       <ul className={styles.menuList}>
-        <li><NavLink to={'/feed'}><h1>Buddiez</h1></NavLink></li>
+        <li><NavLink to={'/'}><h1>Buddiez</h1></NavLink></li>
         {isLogIn || 
-          <li><NavLink to={`/login`}><SignIn size={32} />Log in</NavLink></li>}
+          <li><NavLink to={`/login`}><SignIn size={32} /><span>Log in</span></NavLink></li>}
         {isLogIn && 
-          <li onClick={handleOpenCreatePostModal}><Sticker size={32} />Post</li>}
-        <li><NavLink to={'/'}><House size={32} />Feed</NavLink></li>
+          <li onClick={handleOpenCreatePostModal}><Sticker size={32} /><span>Post</span></li>}
+        <li><NavLink to={'/'}><House size={32} /><span>Feed</span></NavLink></li>
         {isLogIn && 
-          <li><NavLink to={`/profile/${username}`}><Cat size={32} />Profile</NavLink></li>}
-        <li onClick={handleOpenSearchModal}><MagnifyingGlass size={32} />Search</li>
+          <li><NavLink to={`/profile/${username}`}><Cat size={32} /><span>Profile</span></NavLink></li>}
+        <li onClick={handleOpenSearchModal}><MagnifyingGlass size={32} /><span>Search</span></li>
       </ul>
 
       <CreatePostModal 

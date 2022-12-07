@@ -131,7 +131,7 @@ export function FeedPost({ isLogIn, userid, owner_id, postid, favoritePosts, loc
           <div onClick={() => navigate(`/post/${postid}`)}>
             <ChatCircleDots size={32} />
           </div>
-          <span>{numberOfLikes} people liked this</span>
+          <span className={styles.spanLikes}>{numberOfLikes} </span>
         </div>
         <div className={styles.rightIcons}>
           <DotsThreeOutline size={32} />

@@ -3,9 +3,8 @@
   width: 100%;
 }
 
-main {
+.mainProfile {
   width: 100%;
-  min-width: 900px;
   margin: 0 auto;
 }
 
@@ -129,4 +128,54 @@ main {
 
 .messageAboutNoPosts {
   text-align: center;
+}
+
+@media (max-width: 810px) {
+  .profileContainer {
+    width: 100%;
+    background-color: var(--primary-color);
+
+    box-shadow: none;
+  }
+
+  .postDiv {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .infos {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .infoMiddle {
+    align-self: center;
+  }
+
+  .infoRight {
+    width: 100%;
+    gap: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .infoIcons {
+    flex-direction: row;
+    align-items: start;
+  }
+}
+
+@media (max-width: 480px) {
+  .profileContainer {
+    margin: -40px auto 80px;
+  }
+}
+
+@media (max-width: 380px) {
+  .postsAndFollowers {
+    width: 100%;
+  }
 }

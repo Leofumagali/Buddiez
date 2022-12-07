@@ -191,6 +191,8 @@ export function App() {
             isLogIn={isLogIn}
           />} 
         />
+
+        <Route path='/*' element={<Navigate to='/' />} />
       </Routes>
 
       <CreatePostModal 

@@ -8,3 +8,9 @@ main {
   min-width: 900px;
   margin: 0 auto;
 }
+
+@media (max-width: 950px) {
+  main {
+    min-width: 0px;
+  }
+}

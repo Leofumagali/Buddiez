@@ -78,7 +78,7 @@ export function SearchModal({ isOpen, onRequestClose }:SearchModalProps) {
         </div>
         <h1 className={styles.searchTitle}>Search</h1>
         <div className={styles.inputDiv}>
-          <p>How are you looking for?</p>
+          <p>Who are you looking for?</p>
           <input
             id='searchInput'
             type="text"

@@ -1,6 +1,6 @@
 export const themes = {
   light: {
-    '--primary-color': 'white',
+    '--primary-color': 'f7f9f8',
     '--secondary-color': 'black',
   },
   dark: {

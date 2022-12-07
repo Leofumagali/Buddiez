@@ -133,7 +133,7 @@ export function Profile({ isLogIn, username, userid, verifyToken }:ProfileProps)
   
   return (
     <div className={styles.container}>
-      <main>
+      <main className={styles.mainProfile}>
         <section className={styles.profileContainer}>
           <div className={styles.profileInfos}>
             <div className={styles.infos}>
