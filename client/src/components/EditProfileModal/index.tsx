@@ -5,6 +5,7 @@ import { Input } from '../Input';
 import { FileArrowDown, X } from 'phosphor-react'
 import styles from './styles.module.scss'
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const modalLayout = {
   content: {
@@ -27,6 +28,8 @@ export function EditProfileModal({isOpen, onRequestClose}:EditProfileModalProps)
   const [newDescription, setNewDescription] = useState('')
   const [newProfilePicURL, setNewProfilePicURL] = useState('')
   const [newProfilePicID, setNewProfilePicID] = useState('')
+
+  const navigate = useNavigate()
 
   const uploadWidget = window.cloudinary.createUploadWidget({
       cloud_name: import.meta.env.VITE_CLOUD_NAME,
@@ -56,6 +59,10 @@ export function EditProfileModal({isOpen, onRequestClose}:EditProfileModalProps)
               profile_pic_id: newProfilePicID,
             })
             .then(res => {
+              if(newUsername.length > 0) {
+                navigate(`/profile/${newUsername}`)
+                window.location.reload()
+              }
               window.location.reload()
             })
             .catch(error => {
