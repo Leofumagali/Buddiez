@@ -5,21 +5,6 @@ import Modal from 'react-modal'
 import { NavLink } from 'react-router-dom'
 import styles from './styles.module.scss'
 
-const modalLayout = {
-  content: {
-    width: '700px',
-    height: '500px',
-    borderRadius: '10px',
-    backgroundColor: 'var(--background-color)',
-    transform: 'translate(50%, 30%)',
-    overflow: 'hidden',
-    outline: 'none',
-    boxShadow: 'rgba(0, 0, 0, 0.3) 0 1px 3px',
-    WebkitBoxShadow: 'rgba(0, 0, 0, 0.3) 0 1px 3px',
-    MozBoxShadow: 'rgba(0, 0, 0, 0.3) 0 1px 3px',
-  }
-}
-
 interface SearchModalProps {
   isOpen: boolean
   onRequestClose: () => void
@@ -52,7 +37,6 @@ export function SearchModal({ isOpen, onRequestClose }:SearchModalProps) {
           })
           .then(res => {
             setListOfUsers(res.data.data)
-            console.log(listOfUsers)
           })
           .catch(error => {
             console.log(`Sorry, something went wrong: ${error}`)
@@ -69,8 +53,7 @@ export function SearchModal({ isOpen, onRequestClose }:SearchModalProps) {
     <Modal
       isOpen={isOpen}
       onRequestClose={handleCloseModalAndResetUserSearch}
-      style={modalLayout}
-      className='react-modal-content'
+      className={styles.modalLayout}
     >
       <div className={styles.container}>
         <div onClick={handleCloseModalAndResetUserSearch}>
@@ -105,6 +88,8 @@ export function SearchModal({ isOpen, onRequestClose }:SearchModalProps) {
               </NavLink>
             )
           })}
+          {listOfUsers?.length === 0 
+                  && <h1 className={styles.notFinding}>Not finding anyone...</h1>}
         </div>
       </div>
     </Modal>

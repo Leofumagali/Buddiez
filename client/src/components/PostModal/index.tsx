@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ChatCircleDots, DotsThreeOutline, PawPrint, TagSimple, Trash } from 'phosphor-react';
+import { ChatCircleDots, DotsThreeOutline, PawPrint, TagSimple } from 'phosphor-react';
 import trashicon from '../../../public/trash-icon.svg'
 import { useEffect, useState } from 'react';
 import Modal from 'react-modal'
@@ -7,21 +7,6 @@ import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import styles from './styles.module.scss'
-
-const modalLayout = {
-  content: {
-    width: '1000px',
-    height: '700px',
-    borderRadius: '10px',
-    backgroundColor: 'var(--primary-color)',
-    transform: 'translate(22%, 8%)',
-    overflow: 'hidden',
-    outline: 'none',
-    boxShadow: 'rgba(0, 0, 0, 0.3) 0 1px 3px',
-    WebkitBoxShadow: 'rgba(0, 0, 0, 0.3) 0 1px 3px',
-    MozBoxShadow: 'rgba(0, 0, 0, 0.3) 0 1px 3px',
-  }
-}
 
 interface PostModalProps {
   isLogIn: boolean
@@ -175,8 +160,7 @@ export function PostModal({ isLogIn, isOpen, onRequestClose, favoritePosts, user
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestCloseAndNavigateBack}
-      style={modalLayout}
-      className='react-modal-content'
+      className={styles.modalLayout}
     >
       <div className={styles.container}>
         <section className={styles.postSection}>
@@ -211,7 +195,7 @@ export function PostModal({ isLogIn, isOpen, onRequestClose, favoritePosts, user
               <div onClick={focusOnInput}>
                 <ChatCircleDots size={32} />
               </div>
-              <span>{numberOfLikes} people liked this</span>
+              <span className={styles.likes}>{numberOfLikes}</span>
             </div>
 
             <div className={styles.rightIcons}>

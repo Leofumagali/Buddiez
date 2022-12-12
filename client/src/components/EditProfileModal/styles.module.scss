@@ -1,3 +1,14 @@
+.modalLayout {
+  width: 600px;
+  height: 530px;
+  border-radius: 10px;
+  background-color: var(--background-color);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -41,4 +52,10 @@
   background-color: #d9d9d9;
   border-radius: .5rem;
   resize: none;
+}
+
+@media (max-width: 620px) {
+  .modalLayout {
+    width: 90%;
+  }
 }

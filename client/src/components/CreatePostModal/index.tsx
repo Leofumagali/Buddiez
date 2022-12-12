@@ -6,16 +6,6 @@ import { FileArrowDown, X } from 'phosphor-react'
 import styles from './styles.module.scss'
 import axios from 'axios';
 
-const modalLayout = {
-  content: {
-    width: '600px',
-    height: '530px',
-    borderRadius: '10px',
-    backgroundColor: 'var(--background-color)',
-    transform: 'translate(70%, 30%)'
-  }
-}
-
 interface CreatePostModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
@@ -70,8 +60,7 @@ export function CreatePostModal({isOpen, onRequestClose}:CreatePostModalProps) {
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      style={modalLayout}
-      className='react-modal-content'
+      className={styles.modalLayout}
     >
       <div onClick={onRequestClose} className={styles.closeButton}>
         <X size={26} />

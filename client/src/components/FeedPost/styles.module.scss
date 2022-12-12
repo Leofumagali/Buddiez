@@ -54,7 +54,7 @@
 }
 
 .postImage {
-  background-color: #f7f9f8;
+  background-color: var(--background-post);
   width: 600px;
   height: 500px;
   border-radius: 10px;
@@ -136,7 +136,7 @@
 
 @media (max-width: 670px) {
   .postContainer {
-    background-color: var(--background-color);
+    background-color: var(--background-body);
     width: 100%;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;

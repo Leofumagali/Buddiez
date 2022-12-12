@@ -101,6 +101,7 @@ export function Login({isLogIn, setIsLogIn, setToken}:LoginProps) {
             <Button 
               width='100px'
               height='40px'
+              color='var(--primary-color-stronger)'
               name='Log in'
               type='submit'
             />

@@ -21,7 +21,10 @@ const modalLayout = {
     height: '530px',
     borderRadius: '10px',
     backgroundColor: 'var(--background-color)',
-    transform: 'translate(70%, 30%)'
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
   }
 }
 
@@ -99,8 +102,7 @@ export function SignUpModal({ isOpen, onRequestClose, isLogIn, setIsLogIn, setTo
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      style={modalLayout}
-      className='react-modal-content'
+      className={styles.modalLayout}
     >
       <div onClick={onRequestClose} className={styles.svgDiv}>
         <X size={26} />

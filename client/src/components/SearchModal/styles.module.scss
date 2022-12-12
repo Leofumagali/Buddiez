@@ -1,3 +1,19 @@
+.modalLayout {
+  width: 700px;
+  height: 500px;
+  border-radius: 10px;
+  background-color: var(--background-color);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  outline: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -76,4 +92,34 @@
     gap: 2px;
     margin-left: 16px;
   }  
+}
+
+.notFinding {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: normal;
+}
+
+@media (max-width: 720px) {
+  .modalLayout {
+    width: 95%;
+  }
+}
+
+@media (max-width: 400px) {
+  .inputDiv {
+      p {
+        font-size: .9rem;
+      }
+    }
+
+  .userCard {
+    span {
+      font-size: .9rem;
+    }
+  }
+
+  .notFinding {
+    font-size: .9rem;
+  } 
 }

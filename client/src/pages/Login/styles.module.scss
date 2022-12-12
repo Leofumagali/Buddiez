@@ -48,7 +48,7 @@
 
 .loginForm {
   position: relative;
-  background-color: #D2FCFF;
+  background-color: var(--primary-color);
 
   padding: 3rem;
 
@@ -146,5 +146,19 @@ footer {
   .loginForm {
     width: 35vw;
     min-width: 400px;
+  }
+}
+
+@media (max-width: 429px) {
+  .loginForm {
+    background-color: var(--background-body);
+  }
+}
+
+@media (max-width: 370px) {
+  .logoHeader {
+    h1 {
+      font-size: 5rem;
+    }
   }
 }

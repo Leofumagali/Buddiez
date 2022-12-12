@@ -1,12 +1,24 @@
+.modalLayout {
+  width: 600px;
+  height: 530px;
+  border-radius: 10px;
+  background-color: var(--background-color);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .signupForm {
   display: flex;
   align-items: center;
   flex-direction: column;
   height: 85%;
   padding: 1rem 1.5rem;
+  background-color: var(--primary-color);
 
   button {
-    background-color: rgba(0, 115, 255, 0.201);
+    background-color: var(--primary-color-stronger);
   }
 }
 
@@ -84,4 +96,71 @@ a:last-child {
   display: block;
   text-align: center;
   font-size: 1rem;
+}
+
+
+
+@media (max-width: 615px) {
+  .modalLayout {
+    width: 95%;
+    height: fit-content;
+    padding: 20px;
+  }
+
+  .checkboxInput {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    input {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      transform: none;
+    }
+
+    span {
+      width: 100%;
+    }
+  }
+
+  .namesInputs {
+    input {
+      width: 100% !important;
+    }
+  }
+
+  .birthdayGenderSpeciesInputs {
+    * {
+      width: 100% !important;
+    }
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+      p {
+        font-size: .9rem;
+      }
+    }
+
+    input {
+      width: 100% !important;
+    }
+  }
+
+  .genderLabel {
+    select {
+      width: 100%;
+      padding: 0 10px;
+    }
+  }
+  .speciesLabel {
+    select {
+      width: 100%;
+      padding: 0 10px;
+    }
+  }
 }

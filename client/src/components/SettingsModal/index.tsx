@@ -2,22 +2,6 @@ import { X } from 'phosphor-react'
 import Modal from 'react-modal'
 import styles from './styles.module.scss'
 
-const modalLayout = {
-  content: {
-    width: '300px',
-    height: 'fit-content',
-    borderRadius: '10px',
-    backgroundColor: 'var(--background-color)',
-    right: 'calc(100vw - 50vw)',
-    transform: 'translate(40vw, 70%)',
-    overflow: 'hidden',
-    outline: 'none',
-    boxShadow: 'rgba(0, 0, 0, 0.3) 0 1px 3px',
-    WebkitBoxShadow: 'rgba(0, 0, 0, 0.3) 0 1px 3px',
-    MozBoxShadow: 'rgba(0, 0, 0, 0.3) 0 1px 3px',
-  }
-}
-
 interface SettingsModalProps {
   isLogIn: boolean
   isSettingsModalOpen: boolean
@@ -47,8 +31,7 @@ export function SettingsModal({ isLogIn, isSettingsModalOpen, handleCloseSetting
     <Modal
       isOpen={isSettingsModalOpen}
       onRequestClose={handleCloseSettingsModal}
-      style={modalLayout}
-      className={`react-modal-content ${styles.nicetry}`}
+      className={styles.modalLayout}
     >
       <div className={styles.settingsContainer}>
         <div className={styles.settingsHeader}>
