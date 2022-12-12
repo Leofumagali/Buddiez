@@ -5,9 +5,19 @@ interface SinglePostProps {
   username: string
   profile_pic: string
   onRequestClose: () => void
+  favoritePosts: FavoritePosts[]
+  userid: string
+  likePost: (arg: string) => void
+  unlikePost: (arg: string) => void
+  savePost: (arg: string) => void
+  removeSavePost: (arg: string) => void
 }
 
-export function SinglePost({ isLogIn, username, profile_pic, onRequestClose }:SinglePostProps) {
+interface FavoritePosts {
+  post_id: string
+}
+
+export function SinglePost({ userid, favoritePosts, isLogIn, username, profile_pic, onRequestClose, likePost, unlikePost, savePost, removeSavePost }:SinglePostProps) {
   return (
     <div>
       <main>
@@ -17,6 +27,12 @@ export function SinglePost({ isLogIn, username, profile_pic, onRequestClose }:Si
           isOpen={true}
           onRequestClose={onRequestClose}
           isLogIn={isLogIn}
+          userid={userid}
+          favoritePosts={favoritePosts}
+          likePost={likePost}
+          unlikePost={unlikePost}
+          savePost={savePost}
+          removeSavePost={removeSavePost}
         />
       </main>
     </div>

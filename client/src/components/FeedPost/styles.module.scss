@@ -3,7 +3,7 @@
   margin: 40px auto;
   border-radius: 20px;
   padding: 22px;
-  background-color: lightblue;
+  background-color: var(--background-post);
 
   display: flex;
   flex-direction: column;
@@ -43,6 +43,9 @@
 
 .likeIcon {
   cursor: pointer;
+  img {
+    width: 29px;
+  }
 }
 
 .rightInfo {
@@ -100,7 +103,7 @@
 }
 
 .savedPost {
-  color: red;
+  color: #30a1ff;
 }
 
 .unsavedPost {
@@ -116,7 +119,7 @@
   font-size: 0.85rem;
   text-align: right;
   margin-right: 10px;
-  color: rgb(128, 128, 128);
+  color: var(--secondary-text);
 }
 
 .comments {
@@ -126,12 +129,12 @@
   gap: 8px;
 
   cursor: pointer;
-  color: rgb(83, 83, 83);
+  color: var(--secondary-text);
 }
 
 @media (max-width: 670px) {
   .postContainer {
-    background-color: var(--primary-color);
+    background-color: var(--background-color);
     width: 100%;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;

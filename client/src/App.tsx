@@ -12,6 +12,7 @@ import { SinglePost } from './pages/SinglePost';
 import { SideMenu } from './components/SideMenu';
 import { CreatePostModal } from './components/CreatePostModal';
 import { SearchModal } from './components/SearchModal';
+import { SettingsModal } from './components/SettingsModal';
 
 export function App() {
   useTheme(themes.light)
@@ -178,6 +179,12 @@ export function App() {
             profile_pic={user.profile_pic}
             onRequestClose={handleClosePostModal}
             isLogIn={isLogIn}
+            userid={user._id}
+            favoritePosts={user.favorite_posts}
+            likePost={likePost}
+            unlikePost={unlikePost}
+            savePost={savePost}
+            removeSavePost={removeSavePost}
           />}
         />
 
@@ -189,6 +196,12 @@ export function App() {
             username={user.username}
             profile_pic={user.profile_pic}
             isLogIn={isLogIn}
+            userid={user._id}
+            favoritePosts={user.favorite_posts}
+            likePost={likePost}
+            unlikePost={unlikePost}
+            savePost={savePost}
+            removeSavePost={removeSavePost}
           />} 
         />
 
@@ -203,6 +216,10 @@ export function App() {
       <SearchModal 
         isOpen={isSearchModalOpen}
         onRequestClose={handleCloseSearchModal}
+      />
+
+      <SettingsModal 
+
       />
     </div>
   )

@@ -170,7 +170,7 @@ export function Profile({ isLogIn, username, userid, verifyToken }:ProfileProps)
                         name='Follow'
                         type='button'
                         onClick={handleFollow}
-                        color='rgb(77, 207, 250)'
+                        color='var(--primary-color)'
                       /> 
                     : <div 
                         onClick={handleOpenEditProfileModal} 

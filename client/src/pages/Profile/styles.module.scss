@@ -9,7 +9,7 @@
 }
 
 .profileContainer {
-  background-color: lightblue;
+  background-color: var(--background-post);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -133,7 +133,7 @@
 @media (max-width: 810px) {
   .profileContainer {
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: #f0f0f0;
 
     box-shadow: none;
   }

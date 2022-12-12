@@ -13,7 +13,7 @@ const modalLayout = {
     width: '1000px',
     height: '700px',
     borderRadius: '10px',
-    backgroundColor: 'lightblue',
+    backgroundColor: 'var(--primary-color)',
     transform: 'translate(22%, 8%)',
     overflow: 'hidden',
     outline: 'none',
@@ -29,18 +29,33 @@ interface PostModalProps {
   onRequestClose: () => void;
   username: string
   profile_pic: string
+  favoritePosts: FavoritePosts[]
+  userid: string
+  likePost: (arg: string) => void
+  unlikePost: (arg: string) => void
+  savePost: (arg: string) => void
+  removeSavePost: (arg: string) => void
 }
 
-export function PostModal({ isLogIn, isOpen, onRequestClose, username }:PostModalProps) {
+interface FavoritePosts {
+  post_id: string
+}
+
+export function PostModal({ isLogIn, isOpen, onRequestClose, favoritePosts, username, userid, likePost, unlikePost, savePost, removeSavePost }:PostModalProps) {
   const [post, setPost] = useState<any>({})
   const [listOfComments, setListOfComments] = useState<any>([])
   const [newComment, setNewComment] = useState('')
   const [isCommentInputDisabled, setIsCommentInputDisabled] = useState<boolean>(!isLogIn)
-  
+  const [numberOfLikes, setNumberOfLikes] = useState<number>(0)
+
+  const [userLikeThisPost, setUserLikeThisPost] = useState<boolean>(false)
+  const [userSavedThisPost, setUserSavedThisPost] = useState<any>(false)
+
+
   let placeHolderMessage = isLogIn ? 'Comment something...' : 'Log in to comment something'
 
   let navigate = useNavigate()
-  let { postid } = useParams()
+  let { postid } = useParams<{postid: any}>()
 
   let onRequestCloseAndNavigateBack = () => {
     onRequestClose()
@@ -59,12 +74,21 @@ export function PostModal({ isLogIn, isOpen, onRequestClose, username }:PostModa
     scrollCommentsDown()
   }, [post])
 
+  useEffect(() => {
+   if(post) {
+    setUserLikeThisPost(post.likes?.some((item:any) => item.user_id === userid))
+    setUserSavedThisPost(favoritePosts?.some(item => item.post_id === post._id))
+  }
+  }, [userid, post])
+
   const getPost = async () => {
     await axios
       .get(`${import.meta.env.VITE_BASE_URL}/post/${postid}`)
       .then(res => {
-        setPost(res.data.data)
-        setListOfComments((listOfComments:any) => [...res.data.data.comments])
+        let postFromResponse = res.data.data
+        setPost(postFromResponse)
+        setListOfComments((listOfComments:any) => [...postFromResponse.comments])
+        setNumberOfLikes(postFromResponse.likes.length)
       })
   }
 
@@ -98,7 +122,7 @@ export function PostModal({ isLogIn, isOpen, onRequestClose, username }:PostModa
 
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault()
-    if(newComment.length > 0) {
+    if(newComment?.length > 0) {
       addNewComment()
     }
   }
@@ -109,6 +133,36 @@ export function PostModal({ isLogIn, isOpen, onRequestClose, username }:PostModa
       top: 99999,
       behavior: 'smooth'
     });
+  }
+
+  const likePostAndChangeIconStatus = () => {
+    if(isLogIn) {
+      likePost(postid)
+      setNumberOfLikes(numberOfLikes+1)
+      setUserLikeThisPost(true)
+    }
+  }
+
+  const unlikePostAndChangeIconStatus = () => {
+    if(isLogIn) {
+      unlikePost(postid)
+      setNumberOfLikes(numberOfLikes-1)
+      setUserLikeThisPost(false)
+    }
+  }
+
+  const savePostAndChangeIconStates = () => {
+    if(isLogIn) {
+      savePost(postid)
+      setUserSavedThisPost(true)
+    }
+  }
+
+  const removeSavePostAndChangeIconStates = () => {
+    if(isLogIn) {
+      removeSavePost(postid)
+      setUserSavedThisPost(false)
+    }
   }
 
   const inputField = document.getElementById('commentInput') as HTMLInputElement | null;
@@ -147,16 +201,28 @@ export function PostModal({ isLogIn, isOpen, onRequestClose, username }:PostModa
 
           <div className={styles.postIcons}>
             <div className={styles.leftIcons}>
-              <PawPrint size={32} />
+              {userLikeThisPost 
+              ? <div onClick={unlikePostAndChangeIconStatus}>
+                <PawPrint size={32} color='#30a1ff'/>
+              </div> 
+              : <div onClick={likePostAndChangeIconStatus}>
+                <PawPrint size={32} color='black' />
+              </div> }
               <div onClick={focusOnInput}>
                 <ChatCircleDots size={32} />
               </div>
-              <span>{post.likes?.length} people liked this</span>
+              <span>{numberOfLikes} people liked this</span>
             </div>
 
             <div className={styles.rightIcons}>
               <DotsThreeOutline size={32} />
-              <TagSimple size={32} />
+              {userSavedThisPost
+                ? <div onClick={removeSavePostAndChangeIconStates}>
+                  <TagSimple size={32} color='#30a1ff' />
+                  </div>
+                : <div onClick={savePostAndChangeIconStates}>
+                  <TagSimple size={32} color='black' />
+                </div>}
             </div>
           </div>
 
@@ -171,7 +237,7 @@ export function PostModal({ isLogIn, isOpen, onRequestClose, username }:PostModa
 
         <section className={styles.commentSection}>
           <div className={styles.allComments} id='allComments'>
-            {listOfComments.length > 0
+            {listOfComments?.length > 0
               ? listOfComments.map((item:any, idx: number) => {
               return (<div key={idx} className={styles.commentCard}>
                 <div className={styles.mainComment} >

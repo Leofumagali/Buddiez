@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { ChatCircleDots, DotsThreeOutline, PawPrint, TagSimple } from 'phosphor-react'
-import likeIcon from '../../../public/like-icon.svg'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
@@ -122,7 +121,7 @@ export function FeedPost({ isLogIn, userid, owner_id, postid, favoritePosts, loc
           <div className={styles.likeIcon}>
             {userLikeThisPost 
               ? <div onClick={unlikePostAndChangeIconStatus}>
-                <PawPrint size={32} color='red'/>
+                <PawPrint size={32} color='#30a1ff' />
               </div> 
               : <div onClick={likePostAndChangeIconStatus}>
                 <PawPrint size={32} color='black' />
@@ -137,7 +136,7 @@ export function FeedPost({ isLogIn, userid, owner_id, postid, favoritePosts, loc
           <DotsThreeOutline size={32} />
           {userSavedThisPost
             ? <div onClick={removeSavePostAndChangeIconStates}>
-              <TagSimple size={32} color='red' />
+              <TagSimple size={32} color='#30a1ff' />
             </div>
             : <div onClick={savePostAndChangeIconStates}>
               <TagSimple size={32} color='black' />

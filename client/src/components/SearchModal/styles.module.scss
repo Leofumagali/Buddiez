@@ -10,6 +10,7 @@
     position: absolute;
     top: 18px;
     right: 18px;
+    cursor: pointer;
   }
 }
 
@@ -56,7 +57,7 @@
 
   padding: 16px;
   border-radius: 20px;
-  background-color: rgb(150, 150, 245);
+  background-color: lightblue;
 
   img {
     width: 50px;

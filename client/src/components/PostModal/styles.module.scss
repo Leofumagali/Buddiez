@@ -10,7 +10,7 @@
   width: 65%;
   height: 700px;
   border-right: 1px solid black;
-  background-color: rgb(146, 208, 229);
+  background-color: var(--background-post);
   position: relative;
 }
 
@@ -59,7 +59,7 @@
   justify-content: center;
   width: 629px;
   height: 500px;
-  background-color: white;
+  background-color: var(--background-post);
   border-radius: 10px;
   overflow: hidden;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
@@ -129,13 +129,14 @@
   height: 641px;
   padding: 10px;
   overflow: scroll;
+  background-color: var(--background-post);
 }
 
 .commentCard {
   width: 100%;
   padding: 10px;
   border-radius: 10px;
-  background-color: #D2FCFF;
+  background-color: var(--primary-color);
   position: relative;
 }
 
@@ -167,11 +168,11 @@
 
 .commentInput {
   padding: 20px;
-  background-color: #D2FCFF;
+  background-color: var(--primary-color);
 
   input {
     width: 100%;
-    background-color: #D2FCFF;
+    background-color: var(--primary-color);
     outline: none;
   }
 }

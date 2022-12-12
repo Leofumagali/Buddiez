@@ -12,7 +12,7 @@ const modalLayout = {
     width: '600px',
     height: '530px',
     borderRadius: '10px',
-    backgroundColor: 'lightblue',
+    backgroundColor: 'var(--primary-color)',
     transform: 'translate(70%, 30%)'
   }
 }
@@ -116,7 +116,7 @@ export function EditProfileModal({isOpen, onRequestClose}:EditProfileModalProps)
           width='80px'
           height='40px'
           type='submit'
-          color='lightblue'
+          color='var(--primary-color-stronger)'
         />
       </form>
     </Modal>
