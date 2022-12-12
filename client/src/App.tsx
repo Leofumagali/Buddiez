@@ -21,7 +21,7 @@ export function App() {
   const [user, setUser] = useState<any>({})
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
   const [scrollPosition, setScrollPosition] = useState(0)
-
+  const [isPathNameLogin, setIsPathNameLogin] = useState<boolean>(false) 
   const [isPostModalOpen, setIsPostModalOpen] = useState<boolean>(false)
   const [isCreatePostModalOpen, 
     setIsCreatePostModalOpen] = useState<boolean>(false)

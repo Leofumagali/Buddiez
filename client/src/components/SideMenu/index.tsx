@@ -18,7 +18,7 @@ export function SideMenu({ isLogIn, username, isOpen, onRequestClose, handleOpen
       <ul className={styles.menuList}>
         <li><NavLink to={'/'}><h1>Buddiez</h1></NavLink></li>
         {isLogIn || 
-          <li><NavLink to={`/login`}><SignIn size={32} /><span>Log in</span></NavLink></li>}
+          <li onClick={() => location.reload()}><NavLink to={`/login`}><SignIn size={32} /><span>Log in</span></NavLink></li>}
         {isLogIn && 
           <li onClick={handleOpenCreatePostModal}><Sticker size={32} /><span>Post</span></li>}
         <li><NavLink to={'/'}><House size={32} /><span>Feed</span></NavLink></li>
