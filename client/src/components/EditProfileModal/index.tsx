@@ -5,14 +5,14 @@ import { Input } from '../Input';
 import { FileArrowDown, X } from 'phosphor-react'
 import styles from './styles.module.scss'
 import axios from 'axios';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const modalLayout = {
   content: {
     width: '600px',
     height: '530px',
     borderRadius: '10px',
-    backgroundColor: 'var(--primary-color)',
+    backgroundColor: 'var(--background-color)',
     transform: 'translate(70%, 30%)'
   }
 }

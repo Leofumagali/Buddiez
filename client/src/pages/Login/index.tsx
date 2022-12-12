@@ -73,15 +73,17 @@ export function Login({isLogIn, setIsLogIn, setToken}:LoginProps) {
                 name='email'
                 width='100%'
                 height='2rem'
+                padding='10px'
                 type='email'
                 action={setEmail}
               />
             </label>
             
             <label className={styles.mainInput}>Password:
-              <Input 
+              <Input
                 width='100%'
                 height='2rem'
+                padding='10px'
                 type='password'
                 action={setPassword}
               />

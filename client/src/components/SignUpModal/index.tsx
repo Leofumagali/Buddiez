@@ -20,7 +20,7 @@ const modalLayout = {
     width: '600px',
     height: '530px',
     borderRadius: '10px',
-    backgroundColor: 'lightblue',
+    backgroundColor: 'var(--background-color)',
     transform: 'translate(70%, 30%)'
   }
 }

@@ -138,6 +138,10 @@
   border-radius: 10px;
   background-color: var(--primary-color);
   position: relative;
+
+  * {
+    color: #000;
+  }
 }
 
 .deleteComment {

@@ -10,7 +10,7 @@ const modalLayout = {
     width: '700px',
     height: '500px',
     borderRadius: '10px',
-    backgroundColor: 'var(--primary-color)',
+    backgroundColor: 'var(--background-color)',
     transform: 'translate(50%, 30%)',
     overflow: 'hidden',
     outline: 'none',

@@ -10,9 +10,10 @@ interface SideMenuProps {
   onRequestClose: () => void
   handleOpenCreatePostModal: () => void
   handleOpenSearchModal: () => void
+  handleOpenSettingsModal: () => void
 }
 
-export function SideMenu({ isLogIn, username, isOpen, onRequestClose, handleOpenCreatePostModal, handleOpenSearchModal }:SideMenuProps) {
+export function SideMenu({ isLogIn, username, isOpen, onRequestClose, handleOpenCreatePostModal, handleOpenSearchModal, handleOpenSettingsModal }:SideMenuProps) {
   return (
     <nav>
       <ul className={styles.menuList}>
@@ -33,7 +34,7 @@ export function SideMenu({ isLogIn, username, isOpen, onRequestClose, handleOpen
       />
 
       <div className={styles.settingsDiv}>
-        <div>
+        <div onClick={handleOpenSettingsModal}>
           <GearSix size={32} />
           <span>Settings</span>
         </div>

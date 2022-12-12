@@ -48,6 +48,9 @@
   height: 290px;
   width: 80%;
   overflow-y: scroll;
+  * {
+    color: #000;
+  }
 }
 
 .userCard {
@@ -57,7 +60,7 @@
 
   padding: 16px;
   border-radius: 20px;
-  background-color: lightblue;
+  background-color: var(--primary-color-stronger);
 
   img {
     width: 50px;

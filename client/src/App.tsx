@@ -15,17 +15,22 @@ import { SearchModal } from './components/SearchModal';
 import { SettingsModal } from './components/SettingsModal';
 
 export function App() {
-  useTheme(themes.light)
-
   const [isLogIn, setIsLogIn] = useState<boolean>(false)
   const [user, setUser] = useState<any>({})
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  const [isDarkModeOn, setIsDarkModeOn] = useState<any>(Boolean(localStorage.getItem('darkmode')))
+  
+  if(isDarkModeOn) {
+    useTheme(themes.dark)
+  } else {
+    useTheme(themes.light)
+  }
   const [scrollPosition, setScrollPosition] = useState(0)
-  const [isPathNameLogin, setIsPathNameLogin] = useState<boolean>(false) 
   const [isPostModalOpen, setIsPostModalOpen] = useState<boolean>(false)
   const [isCreatePostModalOpen, 
     setIsCreatePostModalOpen] = useState<boolean>(false)
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false)
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState<boolean>(false)
 
   const handleOpenPostModal = () => setIsPostModalOpen(true)
   const handleClosePostModal = () => setIsPostModalOpen(false)
@@ -35,11 +40,15 @@ export function App() {
 
   const handleOpenSearchModal = () => setIsSearchModalOpen(true)
   const handleCloseSearchModal = () => setIsSearchModalOpen(false)
+
+  const handleOpenSettingsModal = () => setIsSettingsModalOpen(true)
+  const handleCloseSettingsModal = () => setIsSettingsModalOpen(false)
   
   let pathname = window.location.pathname
   
   useEffect(() => {
     verifyToken()
+    
   }, [])
 
   // Trying to implement scroll history
@@ -135,6 +144,7 @@ export function App() {
         onRequestClose={handleClosePostModal}
         handleOpenCreatePostModal={handleOpenCreatePostModal}
         handleOpenSearchModal={handleOpenSearchModal}
+        handleOpenSettingsModal={handleOpenSettingsModal}
       />}
 
       <Routes>
@@ -219,7 +229,11 @@ export function App() {
       />
 
       <SettingsModal 
-
+        isSettingsModalOpen={isSettingsModalOpen}
+        handleCloseSettingsModal={handleCloseSettingsModal}
+        isLogIn={isLogIn}
+        isDarkModeOn={isDarkModeOn}
+        setIsDarkModeOn={setIsDarkModeOn}
       />
     </div>
   )

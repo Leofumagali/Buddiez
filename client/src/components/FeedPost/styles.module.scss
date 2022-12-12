@@ -129,7 +129,9 @@
   gap: 8px;
 
   cursor: pointer;
-  color: var(--secondary-text);
+  p {
+    color: var(--secondary-text);
+  }
 }
 
 @media (max-width: 670px) {

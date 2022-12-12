@@ -1,0 +1,110 @@
+.settingsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 30px;
+  gap: 30px;
+}
+
+.settingsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  
+  h1 {
+    font-size: 1.7rem;
+    font-weight: normal;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  svg {
+    cursor: pointer;
+  }
+}
+
+.settingsOptions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  width: 80%;
+
+  div {
+    cursor: pointer;
+  }
+
+  * {
+    font-size: 1.2rem;
+  }
+}
+
+.darkMode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggleBar {
+  background-color: var(--primary-color-stronger);
+  border-radius: 20px;
+  width: 75px;
+  height: 40px;
+  cursor: pointer;
+
+  position: relative;
+  display: inline-block;
+
+  input[type=checkbox] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+  &:checked + .slider:before {
+      background-color: var(--primary-color);
+      left: 38px;
+    }
+  }
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transition: .4s;
+  transition: .4s;
+
+  &:before {
+    position: absolute;
+    border-radius: 20px;
+    content: '';
+    width: 34px;
+    height: 34px;
+    top: 3px;
+    left: 4px;
+    background-color: var(--secondary-text);
+    transition: .4s;
+  }
+}
+
+.deleteAccount {
+  color: rgb(255, 60, 60);
+}
+
+.logout {
+  cursor: pointer;
+  font-size: 1.2rem;
+  justify-self: flex-end;
+
+  &:hover {
+    color: rgb(255, 60, 60);
+  }
+}

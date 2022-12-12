@@ -124,7 +124,7 @@ export function FeedPost({ isLogIn, userid, owner_id, postid, favoritePosts, loc
                 <PawPrint size={32} color='#30a1ff' />
               </div> 
               : <div onClick={likePostAndChangeIconStatus}>
-                <PawPrint size={32} color='black' />
+                <PawPrint size={32} color='var(--normal-text)' />
               </div> }
           </div>
           <div onClick={() => navigate(`/post/${postid}`)}>
@@ -139,7 +139,7 @@ export function FeedPost({ isLogIn, userid, owner_id, postid, favoritePosts, loc
               <TagSimple size={32} color='#30a1ff' />
             </div>
             : <div onClick={savePostAndChangeIconStates}>
-              <TagSimple size={32} color='black' />
+              <TagSimple size={32} color='var(--normal-text)' />
             </div>
             }
         </div>

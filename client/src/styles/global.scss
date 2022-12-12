@@ -9,9 +9,6 @@
         Helvetica,
         Arial,
         sans-serif;
-    --font-color: #0f0f0f;
-    --primary-color: white;
-    --secondary-color: black;
 }
 
 * {
@@ -24,8 +21,12 @@
     font-family: var(--font-sec);
 }
 
+h1, p, span, svg {
+    color: var(--normal-text);
+}
+
  body {
-    background-color: var(--background-color);
+    background-color: var(--background-body);
  }
 
  .App {
