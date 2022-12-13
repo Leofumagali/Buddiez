@@ -141,7 +141,7 @@ export function SignUpModal({ isOpen, onRequestClose, isLogIn, setIsLogIn, setTo
             width='49%'
             height='35px'
             padding='5%'
-            type='text'
+            type='password'
             action={setPassword}
             placeholder='Password'
             required={true}
@@ -150,7 +150,7 @@ export function SignUpModal({ isOpen, onRequestClose, isLogIn, setIsLogIn, setTo
             width='49%'
             height='35px'
             padding='5%'
-            type='text'
+            type='password'
             action={setSecondPassword}
             placeholder='Repeat Password'
             required={true}
