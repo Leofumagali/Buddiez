@@ -42,6 +42,7 @@
 }
 
 .likeIcon {
+  margin-left: 0;
   cursor: pointer;
   img {
     width: 29px;
@@ -51,6 +52,7 @@
 .rightInfo {
   align-self: end;
   margin-right: 10px;
+  color: var(--normal-text);
 }
 
 .postImage {
@@ -80,7 +82,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+  margin: 0 16px;
   svg {
     &:hover {
       color: blue;
@@ -91,14 +93,6 @@
     display: flex;
     align-items: center;
     gap: 12px;
-
-    &:first-child {
-      margin-left: 10px;
-    }
-
-    &:last-child {
-      margin-right: 10px;
-    }
   }
 }
 

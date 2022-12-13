@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Modal from 'react-modal'
 import { Button } from '../Button';
 import { Input } from '../Input';
-import { FileArrowDown, X } from 'phosphor-react'
+import { FileArrowUp, X } from 'phosphor-react'
 import styles from './styles.module.scss'
 import axios from 'axios';
 
@@ -68,7 +68,12 @@ export function CreatePostModal({isOpen, onRequestClose}:CreatePostModalProps) {
 
       <form className={styles.container} onSubmit={handleSubmit}>
         <div className={styles.uploadPicture} onClick={openWidget}>
-          {imageUrl ? <img src={imageUrl} /> : <FileArrowDown size={36} />}
+          {imageUrl 
+            ? <img src={imageUrl} /> 
+            : <div className={styles.uploadPhotoDiv}>
+                <FileArrowUp size={36} />
+                <span>Recommended format: <br/>6/5</span>
+              </div>}
         </div>
         <Input
           width='100%'

@@ -14,7 +14,7 @@ export const themes = {
     '--secondary-color': '#FD8087',
     '--background-color': '#121212',
     '--background-post': '#000',
-    '--secondary-text': '#393939',
+    '--secondary-text': '#808080',
     '--normal-text': '#FFF',
     '--background-body': '#121212',
   }

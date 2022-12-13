@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Modal from 'react-modal'
 import { Button } from '../Button';
 import { Input } from '../Input';
-import { FileArrowDown, X } from 'phosphor-react'
+import { FileArrowUp, X } from 'phosphor-react'
 import styles from './styles.module.scss'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -77,7 +77,13 @@ export function EditProfileModal({isOpen, onRequestClose}:EditProfileModalProps)
 
       <form className={styles.container} onSubmit={handleSubmit}>
         <div className={styles.uploadPicture} onClick={openWidget}>
-          {newProfilePicURL ? <img src={newProfilePicURL} /> : <FileArrowDown size={36} />}
+          {newProfilePicURL 
+            ? <img src={newProfilePicURL} /> 
+            : <div className={styles.uploadPictureDiv}>
+                <p>New profile picture</p>
+                <FileArrowUp size={36} />
+                <span>Recommended format: <br/>1:1</span>
+              </div>}
         </div>
         <Input
           width='100%'

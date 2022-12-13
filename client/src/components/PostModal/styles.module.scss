@@ -141,7 +141,7 @@
 .commentSection {
   display: flex;
   flex-direction: column;
-  flex: 1 ;
+  flex: 1;
   justify-content: space-between;
 }
 
@@ -211,12 +211,8 @@
 
 @media (max-width: 1024px) {
   .modalLayout {
-    width: 100%;
+    width: 70%;
     overflow: scroll;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    -moz-sox-shadow: none;
-    background-color: var(--background-body);
     margin-top: 10px;
   }
 
@@ -232,11 +228,15 @@
   
   .postImage {
     align-self: center;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-sox-shadow: none;
   }
 
   .allComments {
     align-items: center;
     border-radius: 0;
+    height: auto;
   }
   .commentCard {
     height: fit-content;
@@ -244,6 +244,10 @@
 }
 
 @media (max-width: 720px) {
+  .modalLayout {
+    width: 100%;
+  }
+
   .postImage {
     width: 100%;
     height: 100%;

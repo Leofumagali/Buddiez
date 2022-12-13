@@ -1,4 +1,4 @@
-import { Cat, GearSix, House, MagnifyingGlass, SignIn, Sticker } from 'phosphor-react'
+import { Cat, GearSix, House, MagnifyingGlass, SignIn, Camera } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
 import { CreatePostModal } from '../CreatePostModal'
 import styles from './styles.module.scss'
@@ -21,7 +21,7 @@ export function SideMenu({ isLogIn, username, isOpen, onRequestClose, handleOpen
         {isLogIn || 
           <li onClick={() => location.reload()}><NavLink to={`/login`}><SignIn size={32} /><span>Log in</span></NavLink></li>}
         {isLogIn && 
-          <li onClick={handleOpenCreatePostModal}><Sticker size={32} /><span>Post</span></li>}
+          <li onClick={handleOpenCreatePostModal}><Camera size={32} /><span>Post</span></li>}
         <li><NavLink to={'/'}><House size={32} /><span>Feed</span></NavLink></li>
         {isLogIn && 
           <li><NavLink to={`/profile/${username}`}><Cat size={32} /><span>Profile</span></NavLink></li>}

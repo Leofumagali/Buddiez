@@ -30,18 +30,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  
   border-radius: 10px;
   overflow: hidden;
   width: 200px;
   height: 200px;
   background-color: var(--primary-color);
+  border: 1px solid var(--primary-color-stronger);
   cursor: pointer;
   
   img {
     width: 200px;
     height: 200px;
     object-fit: cover;
+  }
+}
+
+.uploadPhotoDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  span {
+    text-align: center;
+    font-size: .8rem;
   }
 }
 
