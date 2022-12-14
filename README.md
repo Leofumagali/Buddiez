@@ -1,4 +1,4 @@
-![Logo](https://ibb.co/m0nYHrn)
+![Buddiez Logo](https://user-images.githubusercontent.com/53956140/207646953-d1b2e7f7-3a97-4ffa-852b-814aba5b12fe.png)
 
 # A social network to connect our best friends.
 
@@ -20,4 +20,4 @@ The mobile application is being developed.
 
 ## Autores
 
-- [@leofumagali](https://www.github.com/leofumagali)
+- [@leofumagali](https://www.github.com/leofumagali) - Full Stack Developer
