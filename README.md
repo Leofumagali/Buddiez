@@ -1,8 +1,8 @@
 # A social network to connect our best friends.
 
-An entire social network made with React using Typescript and a server with Node, Mongodb and Cloudinary.
+An entire social network focused on the interaction of pets and their owners. Post, comment, add and meet new animal friends. Help us connect our best friends!
 
-<a href="https://projects.barcelonacodeschool.com/buddiez/">Buddiez</a>
+<a href="https://projects.barcelonacodeschool.com/buddiez/">Access Buddiez</a>
 
 The mobile application is being developed.
 
@@ -41,8 +41,4 @@ Dark Mode
 
 UX Designers from Barcelona Code School that helped the project:
 
-- Josiane Jacobi
-- Luma Jochims
-- Maryam Talal
-- Salome
-- Tekla Vasadze
+- Josiane Jacobi, Luma Jochims, Maryam Talal, Salome, Tekla Vasadze
