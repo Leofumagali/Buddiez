@@ -2,7 +2,7 @@
 
 An entire social network focused on the interaction of pets and their owners. Post, comment, add and meet new animal friends. Help us connect our best friends!
 
-<a href="https://projects.barcelonacodeschool.com/buddiez/">Access Buddiez</a>
+<a href="https://projects.barcelonacodeschool.com/buddiez/">Buddiez</a>
 
 The mobile application is being developed.
 
@@ -41,4 +41,4 @@ Dark Mode
 
 UX Designers from Barcelona Code School that helped the project:
 
-- Josiane Jacobi, Luma Jochims, Maryam Talal, Salome, Tekla Vasadze
+- Josiane Jacobi, Luma Jochims, Maryam Talal, Salome Rukhadze, Tekla Vasadze
