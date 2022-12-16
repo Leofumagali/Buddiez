@@ -115,7 +115,10 @@ a:visited {
 
 footer {
   background-color: black;
-  color: white;
+  h1 {
+    color: white;
+    font-weight: normal;
+  }
 
   display: flex;
   align-items: center;

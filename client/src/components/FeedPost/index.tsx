@@ -39,7 +39,7 @@ interface FavoritePosts {
   post_id: string
 }
 
-export function FeedPost({ isLogIn, userid, owner_id, postid, favoritePosts, location, image_url, likes, isFavorite, description, created_time, likePost, unlikePost, savePost, removeSavePost }:FeedPostProps) {
+export function FeedPost({ isLogIn, userid, owner_id, postid, favoritePosts, location, image_url, likes, description, created_time, likePost, unlikePost, savePost, removeSavePost }:FeedPostProps) {
   const [owner, setOwner] = useState<Owner>()
   const [numberOfLikes, setNumberOfLikes] = useState<number>(likes.length)
   const [userLikeThisPost, setUserLikeThisPost] = useState<boolean>(likes?.some(item => item.user_id === userid))

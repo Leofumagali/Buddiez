@@ -96,6 +96,7 @@
   justify-content: space-between;
 
   svg {
+    cursor: pointer;
     &:hover {
       color: gray;
     }

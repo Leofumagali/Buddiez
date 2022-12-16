@@ -1,20 +1,26 @@
 import { X } from 'phosphor-react'
 import Modal from 'react-modal'
+import { useNavigate } from 'react-router-dom'
 import styles from './styles.module.scss'
 
 interface SettingsModalProps {
   isLogIn: boolean
   isSettingsModalOpen: boolean
   isDarkModeOn: boolean
+  setIsLogIn: (arg: boolean) => void
   setIsDarkModeOn: (arg: boolean) => void
   handleCloseSettingsModal: () => void
 }
 
-export function SettingsModal({ isLogIn, isSettingsModalOpen, handleCloseSettingsModal, isDarkModeOn, setIsDarkModeOn }:SettingsModalProps) {
+export function SettingsModal({ isLogIn, setIsLogIn,isSettingsModalOpen, handleCloseSettingsModal, isDarkModeOn, setIsDarkModeOn }:SettingsModalProps) {
+
+  let navigate = useNavigate()
 
   const logout = () => {
     localStorage.removeItem('token')
-    location.reload()
+    setIsLogIn(false)
+    navigate('/login')
+    handleCloseSettingsModal()
   }
 
   let handleCheckbox = (e:React.ChangeEvent) => {
@@ -59,9 +65,10 @@ export function SettingsModal({ isLogIn, isSettingsModalOpen, handleCloseSetting
             <p className={styles.deleteAccount}>Delete account</p>
           </div>}
         </div>
-        {isLogIn && <div onClick={logout}>
-          <p className={styles.logout}>Log Out</p>
-        </div>}
+        {isLogIn 
+          &&  <div onClick={logout}>
+                <p className={styles.logout}>Log Out</p>
+              </div>}
       </div>
     </Modal>
   )

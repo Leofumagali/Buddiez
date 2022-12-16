@@ -234,6 +234,7 @@ export function App() {
         isLogIn={isLogIn}
         isDarkModeOn={isDarkModeOn}
         setIsDarkModeOn={setIsDarkModeOn}
+        setIsLogIn={setIsLogIn}
       />
     </div>
   )

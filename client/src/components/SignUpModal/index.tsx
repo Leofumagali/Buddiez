@@ -116,7 +116,7 @@ export function SignUpModal({ isOpen, onRequestClose, isLogIn, setIsLogIn, setTo
             padding='5%'
             type='text'
             action={setName}
-            placeholder='Name'
+            placeholder='Pet name'
             required={true}
           />
           <Input 
@@ -125,7 +125,7 @@ export function SignUpModal({ isOpen, onRequestClose, isLogIn, setIsLogIn, setTo
             padding='5%'
             type='text'
             action={setUsername}
-            placeholder='Username'
+            placeholder='Pet username'
             required={true}
           />
           <Input 
