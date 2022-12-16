@@ -35,7 +35,7 @@ Search Modal
 Dark Mode
 <img width="1440" alt="Dark Mode" src="https://user-images.githubusercontent.com/53956140/207646420-a784dcd7-9a6f-475e-9381-d19b9e5936a2.png">
 
-Mobile Version
+<p>Mobile Version</p>
 <img width="681" alt="image" src="https://user-images.githubusercontent.com/53956140/208088227-a4c11fd2-ac34-4de3-a8b1-ab40bb166ef3.png">
 
 ## Authors
