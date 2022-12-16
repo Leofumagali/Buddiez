@@ -11,6 +11,7 @@
   "dependencies": {
     "@adminjs/express": "^5.0.1",
     "@adminjs/mongoose": "^3.0.1",
+    "axios": "^1.2.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.32.0",
     "cors": "^2.8.5",

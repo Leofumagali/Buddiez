@@ -1,7 +1,6 @@
 const Post = require('../models/Post'),
       User = require('../models/User'),
       userVerification = require('../middlewares/verification')
-const { populate } = require('../models/User')
 
 class PostController {
   
@@ -41,9 +40,9 @@ class PostController {
       let deletedPost = await Post.findOneAndDelete({ _id: postId })
       
       if(deletedPost.image_public_id) {
-        await cloudinary.v2.api.delete_resources([deletedPost.image_public_id])
+        cloudinary.v2.api.delete_resources(deletedPost.image_public_id)
       }
-
+      
       res.status(200).send({status: 'success', message: `Post deleted successfully.`})
     } catch (error) {
       res.status(409).send({status: 'failure', message: `Post could not be deleted.`})
