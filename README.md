@@ -11,7 +11,7 @@ The first time you enter in the website, it might be a little slow cause it's in
 - The mobile application is being developed.
 - There's a lot to improve in the code, but back and front-end were made in just 2 weeks, so I prioritized the functionality.
 
-## Stacks
+## Stack used
 
 **Front-end:**
 <img align="center" title="React" alt="React" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg">
