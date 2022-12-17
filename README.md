@@ -1,10 +1,10 @@
 # A social network to connect our best friends.
 
-An entire social network focused on the interaction of pets and their owners. Post, comment, add and meet new animal friends. Help us connect our best friends!
+An entire social network focused on the interaction of pets and their owners. Post, comment, add and meet new animal friends. Help us to connect our best friends!
 
 The first time you enter in the website, it might be a little slow cause it's in a free server, but after that, it will run normally!
 
-<p><a href="https://buddiez.onrender.com/">Buddiez</a></p>
+<h1 align="center"><a href="https://buddiez.onrender.com/">Buddiez</a></h1>
 
 <p>Ps:</p>
 
