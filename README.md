@@ -2,9 +2,14 @@
 
 An entire social network focused on the interaction of pets and their owners. Post, comment, add and meet new animal friends. Help us connect our best friends!
 
-<a href="https://projects.barcelonacodeschool.com/buddiez/">Buddiez</a>
+The first time you enter in the website, it might be a little slow cause it's in a free server, but after that, it will run normally!
 
-The mobile application is being developed.
+<p><a href="https://buddiez.onrender.com/">Buddiez</a></p>
+
+<p>Ps:</p>
+
+- The mobile application is being developed.
+- There's a lot to improve in the code, but back and front-end were made in just 2 weeks, so I prioritized the functionality.
 
 ## Stack utilizada
 
