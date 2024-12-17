@@ -2,7 +2,7 @@
 
 An entire social network focused on the interaction of pets and their owners. Post, comment, add and meet new animal friends. Help us to connect our best friends!
 
-The first time you enter in the website, it might be a little slow cause it's in a free server, but after that, it will run normally!
+The first time you enter in the website, it might be a little slow cause it's in a free server, but after that it will run normally!
 
 <h1 align="center"><a href="https://buddiez.onrender.com/">Buddiez</a></h1>
 
